@@ -39,7 +39,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth,windowHeight);
   avatar = new Avatar(mouseX,mouseY,AVATAR_MAX_SIZE,AVATAR_SIZE_LOSS_PER_FRAME)
-  food = new Food(random(0,width),random(0,height),FOOD_MIN_SIZE,FOOD_MAX_SIZE);
+  food = new Food(random(0,width),random(0,height),FOOD_MIN_SIZE,FOOD_MAX_SIZE, 5, 5, 30);
   noCursor();
 }
 
@@ -57,6 +57,8 @@ function draw() {
   if (avatar.collide(food)) {
     avatar.eat(food);
   }
+  food.update();
   avatar.display();
   food.display();
+
 }
