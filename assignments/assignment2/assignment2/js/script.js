@@ -3,7 +3,7 @@
 /*****************
 
 OOP Circle Eater
-Pippin Barr
+Pippin Barr - Remixed by William L'Eriger
 
 An Object-Oriented version of the Circle Eater program.
 The player moves a circle around with the mouse.
@@ -20,7 +20,8 @@ const FOOD_MAX_SIZE = 100;
 
 // Variables to store the two key objects
 let avatar;
-let food;
+let food = [];
+let foodItems = 10;
 
 
 // preload()
@@ -39,7 +40,10 @@ function preload() {
 function setup() {
   createCanvas(windowWidth,windowHeight);
   avatar = new Avatar(mouseX,mouseY,AVATAR_MAX_SIZE,AVATAR_SIZE_LOSS_PER_FRAME)
-  food = new Food(random(0,width),random(0,height),FOOD_MIN_SIZE,FOOD_MAX_SIZE, 5, 5, 30);
+  // food = new Food(random(0,width),random(0,height),FOOD_MIN_SIZE,FOOD_MAX_SIZE, 5, 5, 30);
+  for (let i = 0; i < foodItems; i++) {
+    food.push(new Food(width/2,height/2,FOOD_MIN_SIZE,FOOD_MAX_SIZE, 5, 5, 30));
+  }
   noCursor();
 }
 
@@ -54,11 +58,16 @@ function draw() {
   background(0);
 
   avatar.update();
-  if (avatar.collide(food)) {
-    avatar.eat(food);
+
+
+  for (let i = 0; i < food.length; i++) {
+    food[i].update();
+    food[i].display();
+    if (avatar.collide(food[i])) {
+      avatar.eat(food[i]);
+    }
   }
-  food.update();
+
   avatar.display();
-  food.display();
 
 }
