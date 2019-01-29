@@ -1,15 +1,14 @@
-/*********************************************
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
 
-Raving Redactionist CSS.
-
-**********************************************/
-
-/* Just some general syling of the page for aesthetics */
 body {
-  font-family: Courier, monospace;
-  width: 800px;
+  font-family: 'Share Tech Mono', monospace;
+  width: 1200px;
   margin-left: 100px;
   margin-top: 100px;
+  font-size: 1.2em;
+  text-align: justify;
+  background-color: black;
+  color: white;
 }
 
 div {
@@ -18,14 +17,26 @@ div {
 
 /* Redacted elements need to be blanked out */
 .redacted {
-  background-color: black;
+  background-color: white;
   color: transparent;
   text-decoration: none;
 }
 
 /* Revealed elements need to be highlighted because it's a disaster! */
 .revealed {
-  background-color: transparent;
+  background-color: black;
   text-decoration: underline;
-  color: red
+  color: #18e248;
+}
+
+.found {
+  background-color: #18e248;
+  color: white;
+  text-shadow: 0 1px;
+  font-size:1.3em;
+  letter-spacing: 5px;
+}
+
+h3, h4 {
+  color: #18e248;
 }
