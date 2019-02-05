@@ -4,6 +4,7 @@ This is the style file for this project.
 
 **********************************************/
 
+@import url('https://fonts.googleapis.com/css?family=Neucha');
 
 body {
   background: url(../assets/images/wall.jpg) no-repeat;
@@ -14,6 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Neucha', cursive;
 }
 
 #canvas {
@@ -28,28 +30,35 @@ body {
 
 #wellBackground {
   background-color: white;
-  width: 400px;
+  width: 125px;
   height: 680px;
   display: flex;
   align-items: center;
   flex-flow: column;
   justify-content: flex-end;
+  font-weight: bolder;
 }
 
-#brick {
+#bricks {
   color: brown;
 }
 
 #sisyphus {
-  color: blue;
+  color: gold;
 }
 
-#prompt {
-  font-size: 16px;
+#prompt, .mockery {
+  font-size: 24px;
   background-color: black;
+  font-family: 'Neucha', cursive;
 }
 
 #prompt, ["From the Depths"] {
   position: absolute;
   left: 50px;
+}
+
+.hiddenMockery {
+ opacity: 0;
+ position: absolute;
 }

@@ -56,11 +56,16 @@ function setup() {
       $bricksStacked = 0;
     // adjust the width of the well by adding to it, calling the css values for the wellBackground div
       let width = parseInt($well.css('width'));
-      width+= 50;
+      width+= 25;
       $well.css('width', width +'px')
+
+      $('.hiddenMockery').removeClass('hiddenMockery').addClass('mockery');
+      $( ".mockery" ).dialog();
 
     }
   });
 
-  $('#prompt').dialog();
+  $( "#prompt" ).dialog({
+  position: {at: "left center" }
+});
 }
