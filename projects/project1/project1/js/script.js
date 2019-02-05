@@ -61,4 +61,6 @@ function setup() {
 
     }
   });
+
+  $('#prompt').dialog();
 }
