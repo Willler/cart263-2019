@@ -29,7 +29,7 @@ body {
 }
 
 #wellBackground {
-  background-color: white;
+  background-color: grey;
   width: 125px;
   height: 680px;
   display: flex;

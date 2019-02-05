@@ -64,17 +64,21 @@ function setup() {
       let width = parseInt($well.css('width'));
       width+= 8;
       $well.css('width', width +'px')
-
+      
+    // display a 'mocking' text window every time you climb up a well
       $('.hiddenMockery').removeClass('hiddenMockery').addClass('mockery');
       $( ".mockery" ).dialog();
 
     }
   });
 
+// display the prompt that instructs player as a dialog widget
   $( "#prompt" ).dialog({
-  position: {at: "left center" }
-});
+    //position the dialog window to the left of the canvas
+      position: {at: "left center" }
+  });
 
+// play the bg music
   bgMusic.play();
   bgMusic.loop = true;
 }
