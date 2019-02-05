@@ -1,0 +1,32 @@
+/*********************************************
+
+This is the style file for this project.
+
+**********************************************/
+
+
+body {
+  background: url(../assets/images/wall.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#canvas {
+  background-color: grey;
+  width: 600px;
+  height: 700px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#wellBackground {
+  background-color: white;
+  width: 400px;
+  height: 680px;
+}
