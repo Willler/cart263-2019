@@ -16,6 +16,7 @@ $(document).ready(setup);
 // $climbOut activates once they reach the top of the well
 let $addBrick;
 let $clickCanvas;
+let $bricksStacked;
 
 // function setup()
 //
@@ -24,10 +25,12 @@ function setup() {
 
   $clickCanvas = $('#canvas');
   $addBrick = $("#bricks");
+  $bricksStacked = 0;
 
   $clickCanvas.on ("click", function(){
-    console.log('yes');
     $addBrick.append("<div>BRICK</div>");
+    $bricksStacked++;
+    console.log($bricksStacked);
   });
 }
 
@@ -35,5 +38,5 @@ function setup() {
 //
 // this function will enlarge the previous well and erase all the bricks gathered, resetting player at the // bottom
 function newWell() {
-  
+
 }
