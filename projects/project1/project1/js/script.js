@@ -19,6 +19,7 @@ let $canvas;
 let $bricksStacked;
 let $well;
 
+// calling audio files 
 let bgMusic = new Audio("assets/sounds/lullaby.mp3");
 let brickSFX = new Audio("assets/sounds/brick.wav");
 
@@ -64,7 +65,7 @@ function setup() {
       let width = parseInt($well.css('width'));
       width+= 8;
       $well.css('width', width +'px')
-      
+
     // display a 'mocking' text window every time you climb up a well
       $('.hiddenMockery').removeClass('hiddenMockery').addClass('mockery');
       $( ".mockery" ).dialog();
