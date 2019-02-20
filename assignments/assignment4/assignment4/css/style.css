@@ -7,3 +7,21 @@ This is the style file for this project.
 #fish {
   width: 10%;
 }
+
+body {
+  margin: 100px 10% 0 10%;
+  width: 1000px;
+  background-color: cyan;
+}
+
+#mouth {
+  padding-right: 100px;
+}
+
+#fly {
+  padding-right: 25px;
+}
+
+h1 {
+  margin-left: 400px;
+}

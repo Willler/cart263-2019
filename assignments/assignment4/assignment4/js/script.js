@@ -17,7 +17,7 @@ Chewing: https://freesound.org/people/InspectorJ/sounds/412068/
 // Sound effects for the experience
 let buzzSFX = new Audio("assets/sounds/buzz.mp3");
 let crunchSFX = new Audio("assets/sounds/crunch.wav");
-let warningSFX = new Audio("assets/sounds/warning.wav");
+let warningSFX = new Audio("assets/sounds/warning.mp3");
 
 // Variable to hold our two key elements
 let $mouth;
@@ -41,7 +41,12 @@ function setup() {
   // Get the fly element from the page
   $fly = $('#fly');
   // Make it draggable
-  $fly.draggable();
+  $fly.draggable({
+    start: function(event,ui) {
+      buzzSFX.loop = true;
+      buzzSFX.play();
+    }
+  });
 
   //fish element
   $fishbones = $('#fish')
@@ -53,8 +58,7 @@ function setup() {
   });
 
   // Start up the buzzing of the fly
-  buzzSFX.loop = true;
-  buzzSFX.play();
+
 }
 
 // flyDropped(event,ui)
