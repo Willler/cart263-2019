@@ -165,8 +165,9 @@ let answers = [];
 // keep track of score
 let score;
 
+
 // How many possible answers there are per round
-const NUM_OPTIONS = 5;
+const NUM_OPTIONS = 8;
 
 // Get setup!
 $(document).ready(setup);
@@ -284,13 +285,17 @@ if (annyang) {
   var commands = {
 
     'i give up': function(correctAnimal) {
-      $button.effect('highlight');
+      // $('.guess').effect('shake');
       $('.guess').remove();
       newRound();
+      score = 0;
+      $('#scoreNumber').text(score);
+      console.log('1 is working')
     },
 
     'say it again': function() {
       speakAnimal(correctAnimal);
+      console.log('2 is working')
     },
 
     'i think it is *rightChoice': function(rightChoice) {
@@ -298,6 +303,9 @@ if (annyang) {
         $('.guess').remove();
         // Start a new round
         setTimeout(newRound,1000);
+        console.log("3 is working");
+        score++;
+        $('#scoreNumber').text(score);
       }
     }
 
