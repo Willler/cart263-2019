@@ -1,0 +1,17 @@
+body {
+  height: 100%;
+  width: 80%;
+  /* overflow: hidden; */
+  padding-left: 2%;
+}
+
+#click-to-begin {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+#scoreDivision {
+  margin: 15px;
+  font-size: 1.5em;
+}
