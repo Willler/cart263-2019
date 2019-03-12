@@ -10,24 +10,27 @@ on a small scale
 
 ******************/
 
-// variable to store the elements chosen from the input
-let elementsChosen = [];
+// the variables for the five different arrays contained within the JSON file
 let art;
 let animals;
 let flowers;
 let moods;
 let countries;
 
+// defining the variable for buttons
 let $buttons;
 
-let animalChosen;
-let artChosen;
-let flowersChosen;
-let moodChosen;
-let countryChosen;
+// the array containing the names of the buttons clicked on
+let tags = [];
+// the variables to store and identify tags within the tags array
+let tagNumber = 0;
+let tagPosition= 0;
 
+
+// constant variable to determine how many buttons to show per array in the input article
 const INPUT_OPTIONS = 4;
 
+//Initializing
 $(document).ready(setup);
 
 // setup
@@ -76,17 +79,16 @@ function dataLoaded(data) {
 
 function startGame() {
 
-  elementsChosen = [];
-
   for (let i = 0; i < INPUT_OPTIONS; i++) {
 
+    // making the button labels random, choosing from their specific arrays within the JSON files
     let artOptions = art[Math.floor(Math.random() * art.length)];
     let animalOptions = animals[Math.floor(Math.random() * animals.length)];
     let moodOptions = moods[Math.floor(Math.random() * moods.length)];
     let flowersOptions = flowers[Math.floor(Math.random() * flowers.length)];
     let countryOptions = countries[Math.floor(Math.random() * countries.length)];
 
-    // Add button with specific labels label
+    // Add button with specific labels, using three attributes called inside the create buttons function
     createButtons(artOptions, '<div class="artChoices"></div>', '.art',);
     createButtons(animalOptions, '<div class="animalChoices"></div>', '.animals');
     createButtons(moodOptions, '<div class="moodChoices"></div>', '.moods');
@@ -94,9 +96,18 @@ function startGame() {
     createButtons(countryOptions, '<div class="countryChoices"></div>', '.countries');
 }
 
-$(".choiceName").on("click",function(){
-  console.log($(this).text());
-})
+  // using the class choiceName, run an on click anonymous function to make images appear
+  $(".choiceName").on("click",function(){
+
+    // push the tag selected inside a blank array
+    tags.push($(this).text());
+    // increase the tag number so that the next tag selected is in a new position
+    console.log(tags[tagNumber]);
+    tagNumber++;
+    // run the caricature function
+    caricature();
+  })
+
 
 }
 
@@ -104,11 +115,29 @@ $(".choiceName").on("click",function(){
 //
 // create art array buttons for the input
 function createButtons(label, div, place) {
+  // create the button as a div
     $buttons = $(div);
+  // make the text on the button the label
     $buttons.text(label);
+  // create the actual button object using jquery UI
     $buttons.button();
+  // append the buttons to a specific place, which are div classes in the index page
     $(place).append($buttons);
+  // add a class to each button in order to be able to choose specific ones
     $buttons.addClass("choiceName");
+}
+
+// caricature()
+//
+// function to display the images within the specific article
+function caricature() {
+  // check that the number of images that can be calle doesn't go over a specific number
+    if (tagPosition <= 5) {
+      // append image using lorem flickr and template strings
+      $('#images').append(`<img src=https://loremflickr.com/320/240/${tags[tagPosition]}>`);
+      // add 1 to the image count
+      tagPosition++;
+  }
 }
 
 // random input
