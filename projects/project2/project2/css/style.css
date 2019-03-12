@@ -66,8 +66,9 @@ h1 {
   font-size: 48px;
 }
 
-#input {
-
+#haiku {
+  font-size: 16px;
+  color: green;
 }
 
 .art, .countries, .flowers, .moods, .animals {

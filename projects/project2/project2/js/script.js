@@ -106,6 +106,10 @@ function startGame() {
     tagNumber++;
     // run the caricature function
     caricature();
+
+    if (tagNumber === 6) {
+      createPoem();
+    }
   })
 
 
@@ -139,6 +143,18 @@ function caricature() {
       tagPosition++;
   }
 }
+
+// createPoem
+//
+// create a poem using the tags created
+function createPoem() {
+  $('#poemLines1').text(`From the cradle ye were like a ${tags[0]},`);
+  $('#poemLines2').text(`You were given freedom and chose ${tags[1]},`);
+  $('#poemLines3').text(`Yet you struggled, like a ${tags[2]} out of the ocean,`);
+  $('#poemLines4').text(`It was a battle of wills, yet you emerged victorious, brandishing your ${tags[3]},`);
+  $('#poemLines5').text(`Oh, dear ${tags[4]}... you were never the same,`)
+  $('#poemLines6').text(`For the internet robbed you of all your ${tags[5]}.`)
+};
 
 // random input
 //
