@@ -13,6 +13,10 @@ on a small scale
 // variable to store the elements chosen from the input
 let elementsChosen = [];
 let art;
+let animals;
+let flowers;
+let moods;
+let countries;
 
 const INPUT_OPTIONS = 4;
 
@@ -45,15 +49,19 @@ function dataLoaded(data) {
   console.log(artElement);
 
   let moodsElement = getRandomInputElement(data.moods);
+  moods = data.moods;
   console.log(moodsElement);
 
   let animalsElement = getRandomInputElement(data.animals);
+  animals = data.animals;
   console.log(animalsElement);
 
   let flowersElement = getRandomInputElement(data.flowers);
+  flowers = data.flowers;
   console.log(flowersElement);
 
   let countriesElement = getRandomInputElement(data.countries);
+  countries = data.countries;
   console.log(countriesElement);
 
 }
@@ -63,31 +71,33 @@ function startGame() {
   elementsChosen = [];
 
   for (let i = 0; i < INPUT_OPTIONS; i++) {
-  // Choose the answer text randomly from the art array
-  let artChosen = art[Math.floor(Math.random() * art.length)];
-  // Add a button with this label
-  createButton(artChosen);
-  console.log(artChosen);
-  // Add this answer to the answers array
-  elementsChosen.push(artChosen);
+
+    // Choose the answer text randomly from the art array
+    let artChosen = art[Math.floor(Math.random() * art.length)];
+    let animalChosen = animals[Math.floor(Math.random() * animals.length)];
+    let moodChosen = moods[Math.floor(Math.random() * moods.length)];
+    let flowersChosen = flowers[Math.floor(Math.random() * flowers.length)];
+    let countryChosen = countries[Math.floor(Math.random() * countries.length)];
+
+    // Add button with specific labels label
+    createButtons(artChosen, '<div class="artChoices"></div>', '#art');
+    createButtons(animalChosen, '<div class="animalChoices"></div>', '#animals');
+    createButtons(moodChosen, '<div class="moodChoices"></div>', '#moods');
+    createButtons(flowersChosen, '<div class="flowerChoices"></div>', '#flowers');
+    createButtons(countryChosen, '<div class="countryChoices"></div>', '#countries');
+
+  }
 }
 
-}
-
-// createButton
+// createArtButton
 //
-// create buttons for the input
-function createButton(label) {
-  let $artButtons = $('<div class="a"></div>');
-  $artButtons.text(label);
-  $artButtons.button();
-  // $artButtons.on('click', function() {
-  //
-  // });
-
-  $('#art').append($artButtons);
-
-
+// create art array buttons for the input
+function createButtons(label, div, place) {
+  // buttons for the art array
+  let $buttons = $('<div class="artChoices"></div>');
+  $buttons.text(label);
+  $buttons.button();
+  $(place).append($buttons);
 }
 
 // random input

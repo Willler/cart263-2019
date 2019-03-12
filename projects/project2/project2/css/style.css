@@ -66,9 +66,16 @@ h1 {
   font-size: 48px;
 }
 
-#art {
+#input {
+
+}
+
+#art, #countries, #flowers, #moods, #animals {
   border-style: none;
-  font-size: 36px;
-  background-color: grey;
-  color: green;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  text-transform: uppercase;
+  margin: 10px;
 }
