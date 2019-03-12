@@ -18,6 +18,14 @@ let flowers;
 let moods;
 let countries;
 
+let $buttons;
+
+let animalChosen;
+let artChosen;
+let flowersChosen;
+let moodChosen;
+let countryChosen;
+
 const INPUT_OPTIONS = 4;
 
 $(document).ready(setup);
@@ -72,32 +80,35 @@ function startGame() {
 
   for (let i = 0; i < INPUT_OPTIONS; i++) {
 
-    // Choose the answer text randomly from the art array
-    let artChosen = art[Math.floor(Math.random() * art.length)];
-    let animalChosen = animals[Math.floor(Math.random() * animals.length)];
-    let moodChosen = moods[Math.floor(Math.random() * moods.length)];
-    let flowersChosen = flowers[Math.floor(Math.random() * flowers.length)];
-    let countryChosen = countries[Math.floor(Math.random() * countries.length)];
+    let artOptions = art[Math.floor(Math.random() * art.length)];
+    let animalOptions = animals[Math.floor(Math.random() * animals.length)];
+    let moodOptions = moods[Math.floor(Math.random() * moods.length)];
+    let flowersOptions = flowers[Math.floor(Math.random() * flowers.length)];
+    let countryOptions = countries[Math.floor(Math.random() * countries.length)];
 
     // Add button with specific labels label
-    createButtons(artChosen, '<div class="artChoices"></div>', '#art');
-    createButtons(animalChosen, '<div class="animalChoices"></div>', '#animals');
-    createButtons(moodChosen, '<div class="moodChoices"></div>', '#moods');
-    createButtons(flowersChosen, '<div class="flowerChoices"></div>', '#flowers');
-    createButtons(countryChosen, '<div class="countryChoices"></div>', '#countries');
+    createButtons(artOptions, '<div class="artChoices"></div>', '.art',);
+    createButtons(animalOptions, '<div class="animalChoices"></div>', '.animals');
+    createButtons(moodOptions, '<div class="moodChoices"></div>', '.moods');
+    createButtons(flowersOptions, '<div class="flowerChoices"></div>', '.flowers');
+    createButtons(countryOptions, '<div class="countryChoices"></div>', '.countries');
+}
 
-  }
+$(".choiceName").on("click",function(){
+  console.log($(this).text());
+})
+
 }
 
 // createArtButton
 //
 // create art array buttons for the input
 function createButtons(label, div, place) {
-  // buttons for the art array
-  let $buttons = $('<div class="artChoices"></div>');
-  $buttons.text(label);
-  $buttons.button();
-  $(place).append($buttons);
+    $buttons = $(div);
+    $buttons.text(label);
+    $buttons.button();
+    $(place).append($buttons);
+    $buttons.addClass("choiceName");
 }
 
 // random input

@@ -70,7 +70,7 @@ h1 {
 
 }
 
-#art, #countries, #flowers, #moods, #animals {
+.art, .countries, .flowers, .moods, .animals {
   border-style: none;
   font-size: 14px;
   display: flex;
