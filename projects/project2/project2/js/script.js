@@ -38,6 +38,7 @@ $(document).ready(setup);
 // initializing variables
 function setup() {
 
+  // $( "#speechInstruction" ).remove();
   // Start by displaying a text pop-up to introduce player to the game
   $( "#startGameText" ).dialog({
     //position the dialog window in the center of the canvas
@@ -108,11 +109,24 @@ function startGame() {
     caricature();
 
     if (tagNumber === 6) {
-      createPoem();
+      $("#speechInstruction").text("Please say: 'I have grown up' to gather your experiences")
+      $( "#speechInstruction" ).dialog({
+        //position the dialog window in the center of the canvas
+          position: {at: "center" }
+      });
+
+      if (annyang) {
+        var commands = {
+          'i have grown up': function() {
+            createPoem();
+            console.log('ann working')
+          }
+        }
+        annyang.addCommands(commands);
+        annyang.start();
+      }
     }
   })
-
-
 }
 
 // createArtButton
