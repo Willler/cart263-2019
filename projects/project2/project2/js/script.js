@@ -46,8 +46,8 @@ function setup() {
   $( "#startGameText" ).dialog({
     //position the dialog window in the center of the canvas
       position: {at: "center" },
-      height: 300,
-      width: 500
+      height: 380,
+      width: 550
   });
 
   bgMusic.play();
@@ -117,8 +117,20 @@ function startGame() {
     caricature();
     clickSFX.play();
 
+    let say = $(this).text();
+
+    // Set some random numbers for the voice's pitch and rate parameters for a bit of fun
+    let options = {
+      pitch: Math.random(),
+      rate: Math.random()
+    };
+
+    // Use ResponsiveVoice to speak the string we generated, with UK English Male voice
+    // and the options we just specified.
+    responsiveVoice.speak(say,'UK English Male', options);
+
     if (tagNumber === 6) {
-      $("#speechInstruction").text("Please say: 'I have grown up' to gather your experiences")
+      $("#speechInstruction").text("Please say: [I have grown up] to gather and configure accrued life data into personality structure. WARNING - Results obtained may differ from initial intentions.");
       $( "#speechInstruction" ).dialog({
         //position the dialog window in the center of the canvas
           position: {at: "center" },
@@ -132,6 +144,7 @@ function startGame() {
             createPoem();
             console.log('ann working');
             clickSFX.play();
+            responsiveVoice.speak(poem1,'UK English Male');
           }
         }
         annyang.addCommands(commands);
@@ -139,6 +152,21 @@ function startGame() {
       }
     }
   })
+}
+
+// annyang speech operation
+// not in any specific function to make speech usable from the beginning
+if (annyang) {
+  var commands = {
+    // reload the page
+    'this is not me': function() {
+      location.reload();
+      console.log('ann workinging out');
+      clickSFX.play();
+    }
+  }
+  annyang.addCommands(commands);
+  annyang.start();
 }
 
 // createArtButton
@@ -180,6 +208,10 @@ function createPoem() {
   $('#poemLines4').text(`It was a battle of wills, yet you emerged victorious, brandishing your ${tags[3]},`);
   $('#poemLines5').text(`Oh, dear ${tags[4]}... you were never the same,`)
   $('#poemLines6').text(`For the internet robbed you of all your ${tags[5]}.`)
+
+  let poem1 = $("poemLines1").text();
+
+
 };
 
 // random input
