@@ -144,7 +144,6 @@ function startGame() {
             createPoem();
             console.log('ann working');
             clickSFX.play();
-            responsiveVoice.speak(poem1,'UK English Male');
           }
         }
         annyang.addCommands(commands);
@@ -206,12 +205,9 @@ function createPoem() {
   $('#poemLines2').text(`You were given freedom and chose ${tags[1]},`);
   $('#poemLines3').text(`Yet you struggled, like a ${tags[2]} out of the ocean,`);
   $('#poemLines4').text(`It was a battle of wills, yet you emerged victorious, brandishing your ${tags[3]},`);
-  $('#poemLines5').text(`Oh, dear ${tags[4]}... you were never the same,`)
-  $('#poemLines6').text(`For the internet robbed you of all your ${tags[5]}.`)
 
-  let poem1 = $("poemLines1").text();
-
-
+  $('#poemLines5').text(`Oh, dear ${tags[4]}... you were never the same,`);
+  $('#poemLines6').text(`For the internet robbed you of all your ${tags[5]}.`);
 };
 
 // random input
