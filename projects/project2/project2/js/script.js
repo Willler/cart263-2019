@@ -24,7 +24,6 @@ let $buttons;
 let tags = [];
 // the variables to store and identify tags within the tags array
 let tagNumber = 0;
-let tagPosition= 0;
 
 
 // constant variable to determine how many buttons to show per array in the input article
