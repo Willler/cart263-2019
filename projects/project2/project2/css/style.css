@@ -4,7 +4,7 @@ This is the style file for this project.
 
 **********************************************/
 
-@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
 
 body, hmtl {
   margin: 0;
@@ -42,7 +42,7 @@ body {
   margin-bottom: 10px;
   border-width: 2px;
   border-style: solid;
-  border-color: green;
+  border-color: #1dff00;
 }
 
 #avatarSpace {
@@ -50,16 +50,23 @@ body {
   height: 96%;
   border-style: solid;
   border-width: 2px;
-  border-color: green;
+  border-color: #1dff00;
 }
 
 h1 {
   margin-left: 25px;
-  font-family: 'Amatic SC', cursive;
+  font-family: 'Orbitron', sans-serif;
   font-weight: bold;
   font-size: 36px;
   margin-top: 10px;
-  color: green;
+  color: white;
+}
+
+h2 {
+  padding: 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+  color: #1dff00;
 }
 
 #avatarSpace h1 {
@@ -68,7 +75,8 @@ h1 {
 
 #haiku {
   font-size: 16px;
-  color: green;
+  color: #1dff00;
+  padding: 15px;
 }
 
 .art, .countries, .flowers, .moods, .animals {
@@ -77,6 +85,31 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: space-between;
+  padding: 5px;
   text-transform: uppercase;
-  margin: 10px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+#poemLines1, #poemLines2, #poemLines3, #poemLines4, #poemLines5, #poemLines6 {
+  padding-left: 10px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+#startGameText, #speechInstruction {
+  height: 300px;
+  width: 0;
+}
+
+img {
+  width: 35%;
+  padding: 10px;
+}
+
+#images {
+  padding-left: 50px;
+}
+
+#tags[0] {
+  right: 15px;
+  down: 20px;
 }

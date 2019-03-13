@@ -30,6 +30,9 @@ let tagPosition= 0;
 // constant variable to determine how many buttons to show per array in the input article
 const INPUT_OPTIONS = 4;
 
+let bgMusic = new Audio("assets/sounds/bg.wav");
+let clickSFX = new Audio("assets/sounds/effects.wav");
+
 //Initializing
 $(document).ready(setup);
 
@@ -42,8 +45,13 @@ function setup() {
   // Start by displaying a text pop-up to introduce player to the game
   $( "#startGameText" ).dialog({
     //position the dialog window in the center of the canvas
-      position: {at: "center" }
+      position: {at: "center" },
+      height: 300,
+      width: 500
   });
+
+  bgMusic.play();
+  bgMusic.loop = true;
 
   // loading in json files by specifying where they are in the files and which function to associate them to
   // array containing art 'isms', animals, moods, flowers and countries
@@ -107,19 +115,23 @@ function startGame() {
     tagNumber++;
     // run the caricature function
     caricature();
+    clickSFX.play();
 
     if (tagNumber === 6) {
       $("#speechInstruction").text("Please say: 'I have grown up' to gather your experiences")
       $( "#speechInstruction" ).dialog({
         //position the dialog window in the center of the canvas
-          position: {at: "center" }
+          position: {at: "center" },
+          height: 300,
+          width: 500
       });
 
       if (annyang) {
         var commands = {
           'i have grown up': function() {
             createPoem();
-            console.log('ann working')
+            console.log('ann working');
+            clickSFX.play();
           }
         }
         annyang.addCommands(commands);
