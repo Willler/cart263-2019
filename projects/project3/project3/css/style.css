@@ -3,3 +3,13 @@
 This is the style file for this project.
 
 **********************************************/
+
+body {
+  height: 800px;
+  padding: 0;
+  margin: 0;
+}
+
+.mini1 {
+  height: 400px;
+}
