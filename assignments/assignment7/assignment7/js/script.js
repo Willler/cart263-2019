@@ -36,9 +36,13 @@ let hihat;
 // Each array element is one beat and has a string with each
 // drum to play for that beat
 // x = kick, o = snare, * = hihat
-let pattern = ['x','*','xo*',' ','x','x','xo','*'];
+let pattern = ['x', 'x', 'o', '*', '*', 'o', 'o', 'x'];
 // Which beat of the pattern we're at right now
 let patternIndex = 0;
+
+// check if soundtrack has been started already, if yes, dont start another instance
+let trackStarted = 0;
+
 
 // setup()
 //
@@ -85,10 +89,15 @@ function setup() {
 // Using this to start the note and drum sequences to get around
 // user interaction (and to give the files time to load)
 function mousePressed() {
-  // Start an interval for the notes
-  setInterval(playNote,NOTE_TEMPO);
-  // Start an interval for the drums
-  setInterval(playDrum,DRUM_TEMPO);
+
+  if (trackStarted === 0) {
+    // Start an interval for the notes
+    setInterval(playNote,NOTE_TEMPO);
+    // Start an interval for the drums
+    setInterval(playDrum,DRUM_TEMPO);
+    // change value of trackStarted
+    trackStarted = 1;
+  }
 }
 
 // playNote
