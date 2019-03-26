@@ -29,16 +29,13 @@ function minigame1() {
   },
   height: 380,
   width: 550,
-  close: minigame2()
+  close: minigame2() 
 });
-
-  // $(".mini").on("dialogclose", minigame2);
 }
 
 function minigame2() {
   $(".mini1").remove();
   $('body').append("<div class = 'mini2'><div>");
-  console.log("mini2");
 
   $(".mini2").text("Minigame 2")
   $(".mini2").dialog({
