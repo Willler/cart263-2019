@@ -41,7 +41,7 @@ let pattern = ['x', 'x', 'o', '*', '*', 'o', 'o', 'x'];
 let patternIndex = 0;
 
 // check if soundtrack has been started already, if yes, dont start another instance
-let trackStarted = 0;
+let trackStarted = false;
 
 
 // setup()
@@ -82,6 +82,16 @@ function setup() {
       path: 'assets/sounds/hihat.wav'
     }
   });
+
+  var flanger = new Pizzicato.Effects.Flanger({
+    time: 0.45,
+    speed: 0.2,
+    depth: 0.1,
+    feedback: 0.1,
+    mix: 0.5
+});
+
+  synth.addEffect(flanger);
 }
 
 // mousePressed
@@ -90,13 +100,13 @@ function setup() {
 // user interaction (and to give the files time to load)
 function mousePressed() {
 
-  if (trackStarted === 0) {
+  if (!trackStarted) {
     // Start an interval for the notes
-    setInterval(playNote,NOTE_TEMPO);
+    setTimeout(playNote,NOTE_TEMPO);
     // Start an interval for the drums
     setInterval(playDrum,DRUM_TEMPO);
     // change value of trackStarted
-    trackStarted = 1;
+    trackStarted = true;
   }
 }
 
@@ -104,12 +114,29 @@ function mousePressed() {
 //
 // Chooses a random frequency and assigns it to the synth
 function playNote() {
-  // Pick a random frequency from the array
-  let frequency = frequencies[Math.floor(Math.random() * frequencies.length)];
-  // Set the synth's frequency
-  synth.frequency = frequency;
-  // If it's note already play, play the synth
-  synth.play();
+
+  let pauseSynth = Math.floor(Math.random() * 10);
+
+  if (pauseSynth === 5) {
+
+    synth.pause();
+    console.log("Synth Sequence has been paused");
+
+  } else {
+
+    // Pick a random frequency from the array
+    let frequency = frequencies[Math.floor(Math.random() * frequencies.length)];
+    // Set the synth's frequency
+    synth.frequency = frequency;
+
+    // If it's note already playing, play the synth
+    synth.play();
+
+  }
+
+    setTimeout(playNote, NOTE_TEMPO * (Math.floor(Math.random() * 10)/3));
+    console.log("Duration Altered");
+
 }
 
 // playDrum()
@@ -123,14 +150,17 @@ function playDrum() {
   // If there's an 'x' in there, play the kick
   if (symbols.indexOf('x') !== -1) {
     kick.play();
+    document.body.style.backgroundColor = "#4286f4";
   }
   // If there's an 'o' in there, play the snare
   if (symbols.indexOf('o') !== -1) {
     snare.play();
+    document.body.style.backgroundColor = "#f441be";
   }
   // If there's an '*' in there, play the hihat
   if (symbols.indexOf('*') !== -1) {
     hihat.play();
+    document.body.style.backgroundColor = "#33e8bd";
   }
   // Advance the pattern by a beat
   patternIndex = (patternIndex + 1) % pattern.length;
