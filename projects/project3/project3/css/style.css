@@ -34,10 +34,10 @@ body {
         opacity: 1.0;
         font-size: 36px;
     }
-    50% {
+    /* 50% {
         opacity: 0.5;
         font-size: 32px;
-    }
+    } */
     75% {
       opacity: 1.0;
       font-size: 28px;
