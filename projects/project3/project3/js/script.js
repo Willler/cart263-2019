@@ -22,17 +22,18 @@ let clickSFX = new Audio("assets/sounds/effects.wav");
 
 function setup() {
 
-  $(this).one('click', minigame1);
+  $(this).one('click', startChoice);
 
 }
 
-function minigame1() {
+function startChoice() {
   clickSFX.play();
-  $('body').append("<div class = 'mini1'><div>");
+  $('#startText').remove();
+  $('body').append("<div class = 'startingGame'><div>");
   console.log("First Minigame - Initiated");
 
-  $(".mini1").text("You close your eyes, removing yourself from reality. You can't help it. After all, it is just another s****y game. You look inside yourself, what do you see?");
-  $(".mini1").dialog({
+  $(".startingGame").text("You close your eyes, removing yourself from reality. You can't help it. After all, it is just another s****y game. You look inside yourself, what do you see?");
+  $(".startingGame").dialog({
   //position the dialog window in the center of the canvas
   position: {
     at: "center"
@@ -42,7 +43,7 @@ function minigame1() {
   close: function() {
     responsiveVoice.speak("There is no escape.", 'UK English Male', options);
     // $(".mini1").remove();
-    setTimeout(minigame1, 5000);
+    setTimeout(startChoice, 5000);
   },
   closeOnEscape: false,
   title: "Crossroads - Eye of the Mind",
@@ -65,12 +66,28 @@ function minigame1() {
 }
 
 function minigame2() {
-  $(".mini1").remove();
+  $(".startingGame").remove();
   clickSFX.play();
   console.log("Second Minigame - Initiated");
   $('body').append("<div class = 'mini2'><div>");
 
-  $(".mini2").text("Minigame 2")
+  $(".mini2").text("A prisoner is told 'If you tell a lie we will hang you; if you tell the truth we will shoot you' What can he say to save himself?");
+
+  //annyang functionality
+  if (annyang) {
+        var commands = {
+          'you will hang me': function() {
+            // call the function to show poem
+            setTimeout(minigame3, 5000);
+            responsiveVoice.speak("Proceeding", 'Italian Male', options);
+            console.log('annyang working');
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+      }
+
   $(".mini2").dialog({
   //position the dialog window in the center of the canvas
   position: {
@@ -89,7 +106,8 @@ function minigame2() {
 }
 
 function minigame3() {
-  $(".mini1").remove();
+  $(".startingGame").remove();
+  $(".mini2").remove();
   clickSFX.play();
   $('body').append("<div class = 'mini3'><div>");
   console.log("Third Minigame - Initiated");

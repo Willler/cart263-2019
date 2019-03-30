@@ -14,3 +14,36 @@ body {
 .mini1 {
   height: 400px;
 }
+
+#startText {
+  position: absolute;
+  left: 45%;
+  top: 400px;
+  color: white;
+  -webkit-animation: startText 3s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  opacity: 0.5;
+}
+
+@-webkit-keyframes startText {
+    0% {
+        opacity: 0.5;
+        font-size: 32px;
+    }
+    25% {
+        opacity: 1.0;
+        font-size: 36px;
+    }
+    50% {
+        opacity: 0.5;
+        font-size: 32px;
+    }
+    75% {
+      opacity: 1.0;
+      font-size: 28px;
+    }
+    100% {
+      opacity: 0.5;
+      font-size: 32px;
+    }
+}
