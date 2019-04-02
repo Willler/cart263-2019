@@ -21,11 +21,12 @@ let options = {
 };
 
 // preloading the audio
-let clickSFX = new Audio("assets/sounds/effects.wav");
+let answerSFX = new Audio("assets/sounds/sublayer.mp3");
+let lockSFX = new Audio("assets/sounds/lockOpened.mp3")
 
 // riddle stuff
 let previousRiddle = '';
-let riddlesAnswered = 0;
+let riddlesAnswered = 1;
 
 // setup
 //
@@ -41,8 +42,6 @@ function setup() {
 // first window that appears after clicking the screen
 // Player can choose an option which will start them off on a specific riddle
 function startChoice() {
-  //play sound effect
-  clickSFX.play();
 
   //remove the promt text
   $('#startText').remove();
@@ -57,20 +56,22 @@ function startChoice() {
   if (annyang) {
         var commands = {
           'contempt': function() {
-
             setTimeout(firstRiddle, 5000);
             responsiveVoice.speak("Years of contempt leave you jaded.", 'Italian Male', options);
             console.log('contempt option chosen');
+            answerSFX.play();
           },
           'fear': function() {
             setTimeout(secondRiddle, 5000);
             responsiveVoice.speak("Unadultered fear of the unknown cripple you.", 'UK English Male', options);
             console.log('fear option chosen');
+            answerSFX.play();
           },
           'hopelessness': function() {
             setTimeout(thirdRiddle, 5000);
             responsiveVoice.speak("The broad expanse of the world weighs heavily upon your mind.", "UK English Female", options);
-            console.log('hopeless option chosen')
+            console.log('hopeless option chosen');
+            answerSFX.play();
           }
         }
         // annyang functionality
@@ -108,8 +109,6 @@ function firstRiddle() {
   $('.riddle2').remove();
   $('.riddle3').remove();
 
-  clickSFX.play();
-
   console.log("First Riddle - Initiated");
   $('body').append("<div class = 'riddle1'><div>");
 
@@ -122,12 +121,16 @@ function firstRiddle() {
 
             if (previousRiddle === '' && riddlesAnswered < 3) {
               setTimeout(secondRiddle, 5000);
+              answerSFX.play();
             } else if (previousRiddle === 'second' && riddlesAnswered < 3) {
-              setTimeout(thirdRiddle, 5000)
+              setTimeout(thirdRiddle, 5000);
+              answerSFX.play();
             } else if (previousRiddle === ' third' && riddlesAnswered < 3) {
               setTimeout(secondRiddle, 5000);
+              answerSFX.play();
             } else if (riddlesAnswered === 3) {
               setTimeout(firstTextGame, 5000);
+              lockSFX.play();
             }
             responsiveVoice.speak("Proceeding", 'Italian Male', options);
             console.log('first riddle solved');
@@ -165,7 +168,6 @@ function secondRiddle() {
   $(".riddle1").remove();
   $('.riddle2').remove();
 
-  clickSFX.play();
 
   $('body').append("<div class = 'riddle2'><div>");
   console.log("Second Riddle - Initiated");
@@ -178,12 +180,16 @@ function secondRiddle() {
 
             if (previousRiddle === '' && riddlesAnswered < 3) {
               setTimeout(firstRiddle, 5000);
+              answerSFX.play();
             } else if (previousRiddle === 'first' && riddlesAnswered < 3) {
-              setTimeout(thirdRiddle, 5000)
+              setTimeout(thirdRiddle, 5000);
+              answerSFX.play();
             } else if (previousRiddle === ' third' && riddlesAnswered < 3) {
               setTimeout(firstRiddle, 5000);
+              answerSFX.play();
             } else if (riddlesAnswered === 3) {
               setTimeout(firstTextGame, 5000);
+              lockSFX.play();
             }
 
             responsiveVoice.speak("Correct. Lions that have not eaten in three years are dead.", 'Spanish Female');
@@ -220,8 +226,6 @@ function thirdRiddle() {
   $(".riddle1").remove();
   $(".riddle2").remove();
 
-  clickSFX.play();
-
   $('body').append("<div class = 'riddle3'><div>");
   console.log("Third Riddle - Initiated");
 
@@ -232,12 +236,16 @@ function thirdRiddle() {
           'shadows': function() {
             if (previousRiddle === '' && riddlesAnswered < 3) {
               setTimeout(secondRiddle, 5000);
+              answerSFX.play();
             } else if (previousRiddle === 'second' && riddlesAnswered < 3) {
-              setTimeout(firstRiddle, 5000)
+              setTimeout(firstRiddle, 5000);
+              answerSFX.play();
             } else if (previousRiddle === ' first' && riddlesAnswered < 3) {
               setTimeout(secondRiddle, 5000);
+              answerSFX.play();
             } else if (riddlesAnswered === 3) {
               setTimeout(firstTextGame, 5000);
+              lockSFX.play();
             }
 
             responsiveVoice.speak("They follow you. Everywhere.", 'Spanish Female');
@@ -274,7 +282,6 @@ function firstTextGame() {
   $(".riddle2").remove();
   $(".riddle3").remove();
 
-  clickSFX.play();
 
   $('body').append("<div class = 'game1'><div>");
   $('.game1').text("This is the first game");

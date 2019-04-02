@@ -4,14 +4,17 @@ This is the style file for this project.
 
 **********************************************/
 
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+
 body {
   height: 800px;
   padding: 0;
   margin: 0;
   background-color: black;
+  font-family: 'Shadows Into Light', cursive;
 }
 
-.mini1 {
+.startingGame {
   height: 400px;
 }
 
@@ -46,4 +49,9 @@ body {
       opacity: 0.5;
       font-size: 32px;
     }
+}
+
+.startingGame, .firstRiddle, .secondRiddle, .thirdRiddle {
+  font-family: 'Shadows Into Light', cursive;
+  font-size: 1.8em;
 }
