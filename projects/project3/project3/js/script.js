@@ -23,6 +23,10 @@ let options = {
 // preloading the audio
 let clickSFX = new Audio("assets/sounds/effects.wav");
 
+// riddle stuff
+let previousRiddle = '';
+let riddlesAnswered = 0;
+
 // setup
 //
 // initializing the project
@@ -48,7 +52,32 @@ function startChoice() {
   console.log("First Minigame - Initiated");
 
   // define the text contained within the dialog window
-  $(".startingGame").text("You close your eyes, removing yourself from reality. You can't help it. After all, it is just another s****y game. You look inside yourself, what do you see?");
+  $(".startingGame").text("You close your eyes, removing yourself from reality. You can't help it. After all, it is just another s****y game. You look inside yourself, what do you see? [Choose Contempt, fear, or hopelessness]");
+
+  if (annyang) {
+        var commands = {
+          'contempt': function() {
+
+            setTimeout(firstRiddle, 5000);
+            responsiveVoice.speak("Years of contempt leave you jaded.", 'Italian Male', options);
+            console.log('contempt option chosen');
+          },
+          'fear': function() {
+            setTimeout(secondRiddle, 5000);
+            responsiveVoice.speak("Unadultered fear of the unknown cripple you.", 'UK English Male', options);
+            console.log('fear option chosen');
+          },
+          'hopelessness': function() {
+            setTimeout(thirdRiddle, 5000);
+            responsiveVoice.speak("The broad expanse of the world weighs heavily upon your mind.", "UK English Female", options);
+            console.log('hopeless option chosen')
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+
+    }
 
   // defining parameters of the dialog window
   $(".startingGame").dialog({
@@ -69,33 +98,18 @@ function startChoice() {
   // removes ability to close window with the escape key
   closeOnEscape: false,
   // title of the window
-  title: "Crossroads - Eye of the Mind",
-  // defining buttons
-  buttons: [{
-
-    text: "Contempt",
-    icon: "ui-icon-gear",
-    click: function() {
-      responsiveVoice.speak("Years of contempt leave you jaded.", 'UK English Female', options);
-      setTimeout(firstRiddle, 5000);
-    }
-  },{
-    text: "Fear",
-    icon: "ui-icon-heart",
-    click: function() {
-      responsiveVoice.speak("Unadultered fear of the unknown cripple you.", "UK English Female", options);
-      setTimeout(minigame3, 5000);
-    }
-  }
-]
+  title: "Crossroads - Eye of the Mind"
 });
 
 }
 
 function firstRiddle() {
   $(".startingGame").remove();
-  $('riddle2').remove();
+  $('.riddle2').remove();
+  $('.riddle3').remove();
+
   clickSFX.play();
+
   console.log("First Riddle - Initiated");
   $('body').append("<div class = 'riddle1'><div>");
 
@@ -105,16 +119,26 @@ function firstRiddle() {
   if (annyang) {
         var commands = {
           'you will hang me': function() {
-            // call the function to show poem
-            setTimeout(minigame3, 5000);
+
+            if (previousRiddle === '' && riddlesAnswered < 3) {
+              setTimeout(secondRiddle, 5000);
+            } else if (previousRiddle === 'second' && riddlesAnswered < 3) {
+              setTimeout(thirdRiddle, 5000)
+            } else if (previousRiddle === ' third' && riddlesAnswered < 3) {
+              setTimeout(secondRiddle, 5000);
+            } else if (riddlesAnswered === 3) {
+              setTimeout(firstTextGame, 5000);
+            }
             responsiveVoice.speak("Proceeding", 'Italian Male', options);
-            console.log('annyang working');
+            console.log('first riddle solved');
+            riddlesAnswered++;
+            previousRiddle = 'first';
           }
         }
         // annyang functionality
         annyang.addCommands(commands);
         annyang.start();
-      }
+    }
 
   $(".riddle1").dialog({
   //position the dialog window in the center of the canvas
@@ -126,29 +150,46 @@ function firstRiddle() {
   close: function() {
     responsiveVoice.speak("...And yet, it persists.", 'UK English Male', options);
     $(".riddle1").remove();
-    setTimeout(minigame2, 5000);
+    setTimeout(firstRiddle, 5000);
   },
   closeOnEscape: false,
-  title: "The Second Layer"
+  title: "The First Riddle"
 });
 }
 
-function minigame3() {
+// secondRiddle
+//
+// function for the second riddle, containing the dialog popup and everything associated with it
+function secondRiddle() {
   $(".startingGame").remove();
-  $(".mini2").remove();
-  clickSFX.play();
-  $('body').append("<div class = 'mini3'><div>");
-  console.log("Third Minigame - Initiated");
+  $(".riddle1").remove();
+  $('.riddle2').remove();
 
-  $(".mini3").text("A murderer is condemned to death. He has to choose between three rooms. The first is full of raging fires, the second is full of assassins with loaded guns, and the third is full of lions that haven't eaten in 3 years. Which room is safest for him?")
+  clickSFX.play();
+
+  $('body').append("<div class = 'riddle2'><div>");
+  console.log("Second Riddle - Initiated");
+
+  $(".riddle2").text("A murderer is condemned to death. He has to choose between three rooms. The first is full of raging fires, the second is full of assassins with loaded guns, and the third is full of lions that haven't eaten in 3 years. Which room is safest for him?")
 
   if (annyang) {
         var commands = {
-          'the third': function() {
-            // call the function to show poem
-            setTimeout(minigame2, 5000);
+          'lions': function() {
+
+            if (previousRiddle === '' && riddlesAnswered < 3) {
+              setTimeout(firstRiddle, 5000);
+            } else if (previousRiddle === 'first' && riddlesAnswered < 3) {
+              setTimeout(thirdRiddle, 5000)
+            } else if (previousRiddle === ' third' && riddlesAnswered < 3) {
+              setTimeout(firstRiddle, 5000);
+            } else if (riddlesAnswered === 3) {
+              setTimeout(firstTextGame, 5000);
+            }
+
             responsiveVoice.speak("Correct. Lions that have not eaten in three years are dead.", 'Spanish Female');
             console.log('annyang working');
+            riddlesAnswered++;
+            previousRiddle = 'second';
           }
         }
         // annyang functionality
@@ -156,8 +197,8 @@ function minigame3() {
         annyang.start();
     }
 
-  $(".mini3").dialog({
-  //position the dialog window in the center of the canvas
+  $(".riddle2").dialog({
+
   position: {
     at: "center"
   },
@@ -165,11 +206,91 @@ function minigame3() {
   width: 550,
   close: function() {
     responsiveVoice.speak("Escape slips through your fingers...", 'UK English Male', options);
-    $(".mini3").remove();
-    setTimeout(minigame3, 5000);
+    $(".riddle2").remove();
+    setTimeout(secondRiddle, 5000);
   },
   closeOnEscape: false,
-  title: "The Third Layer"
+  title: "The Second Riddle"
 });
 
+}
+
+function thirdRiddle() {
+  $(".startingGame").remove();
+  $(".riddle1").remove();
+  $(".riddle2").remove();
+
+  clickSFX.play();
+
+  $('body').append("<div class = 'riddle3'><div>");
+  console.log("Third Riddle - Initiated");
+
+  $(".riddle3").text("They are Dark, and always on the run. Without the sun, there would be none.");
+
+  if (annyang) {
+        var commands = {
+          'shadows': function() {
+            if (previousRiddle === '' && riddlesAnswered < 3) {
+              setTimeout(secondRiddle, 5000);
+            } else if (previousRiddle === 'second' && riddlesAnswered < 3) {
+              setTimeout(firstRiddle, 5000)
+            } else if (previousRiddle === ' first' && riddlesAnswered < 3) {
+              setTimeout(secondRiddle, 5000);
+            } else if (riddlesAnswered === 3) {
+              setTimeout(firstTextGame, 5000);
+            }
+
+            responsiveVoice.speak("They follow you. Everywhere.", 'Spanish Female');
+            console.log('annyang working');
+            riddlesAnswered++;
+            previousRiddle = 'third';
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+    }
+
+  $(".riddle3").dialog({
+
+  position: {
+    at: "center"
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("The light recedes, the tunnel neverending.", 'UK English Male', options);
+    $(".riddle3").remove();
+    setTimeout(thirdRiddle, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Third Riddle"
+});
+}
+
+function firstTextGame() {
+  $(".startingGame").remove();
+  $(".riddle1").remove();
+  $(".riddle2").remove();
+  $(".riddle3").remove();
+
+  clickSFX.play();
+
+  $('body').append("<div class = 'game1'><div>");
+  $('.game1').text("This is the first game");
+  $(".riddle3").dialog({
+
+  position: {
+    at: "center"
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    $(".game1").remove();
+    setTimeout(thirdRiddle, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Second Layer - Game 1"
+  });
 }
