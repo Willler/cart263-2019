@@ -22,7 +22,9 @@ let options = {
 
 // preloading the audio
 let answerSFX = new Audio("assets/sounds/sublayer.mp3");
-let lockSFX = new Audio("assets/sounds/lockOpened.mp3")
+let lockSFX = new Audio("assets/sounds/lockOpened.mp3");
+let riddlesMusic = new Audio("assets/sounds/riddlesMusic.mp3");
+let clickSFX = new Audio("assets/sounds/effects.wav");
 
 // riddle stuff
 let previousRiddle = '';
@@ -44,7 +46,8 @@ function setup() {
 function startChoice() {
 
   //remove the promt text
-  $('#startText').remove();
+  $('.startImage').remove();
+  riddlesMusic.play();
 
   // append the div which contains the popup
   $('body').append("<div class = 'startingGame'><div>");
@@ -277,15 +280,16 @@ function thirdRiddle() {
 }
 
 function firstTextGame() {
-  $(".startingGame").remove();
+
+  console.log("game launched");
   $(".riddle1").remove();
   $(".riddle2").remove();
   $(".riddle3").remove();
 
 
   $('body').append("<div class = 'game1'><div>");
-  $('.game1').text("This is the first game");
-  $(".riddle3").dialog({
+  $('.game1').text("This is the first game, and the end of this trial.");
+  $(".game1").dialog({
 
   position: {
     at: "center"

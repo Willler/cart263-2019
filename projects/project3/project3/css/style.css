@@ -12,46 +12,47 @@ body {
   margin: 0;
   background-color: black;
   font-family: 'Shadows Into Light', cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .startingGame {
   height: 400px;
 }
 
-#startText {
-  position: absolute;
+.startImage {
+  /* position: absolute;
   left: 45%;
-  top: 400px;
+  top: 400px; */
   color: white;
-  -webkit-animation: startText 3s ease-out;
+  -webkit-animation: startImage 1s ease-out;
   -webkit-animation-iteration-count: infinite;
   opacity: 0.5;
+  width: 720px;
 }
 
-@-webkit-keyframes startText {
+.startImage:hover {
+  cursor: pointer;
+}
+
+@-webkit-keyframes startImage {
     0% {
         opacity: 0.5;
-        font-size: 32px;
+        width: 700px;
     }
-    25% {
-        opacity: 1.0;
-        font-size: 36px;
-    }
-    /* 50% {
-        opacity: 0.5;
-        font-size: 32px;
-    } */
-    75% {
-      opacity: 1.0;
-      font-size: 28px;
+    50% {
+      opacity: 1;
+      font-size: 730px;
     }
     100% {
       opacity: 0.5;
-      font-size: 32px;
+      width: 700px;
     }
 }
 
 .startingGame, .firstRiddle, .secondRiddle, .thirdRiddle {
   font-family: 'Shadows Into Light', cursive;
   font-size: 1.8em;
+
 }
