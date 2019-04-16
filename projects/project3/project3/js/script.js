@@ -99,7 +99,7 @@ function startChoice() {
     }
 
   // variables for randomizing location of dialog boxes
-  let horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let horizontalOffset = Math.floor(Math.random() * 201) - 100;
   let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
   // defining parameters of the dialog window

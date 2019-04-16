@@ -39,7 +39,7 @@ body {
     }
     50% {
       opacity: 1;
-      font-size: 730px;
+      width: 702px;
     }
     100% {
       opacity: 0.5;
