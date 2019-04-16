@@ -7,14 +7,10 @@ This is the style file for this project.
 @import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
 
 body {
-  height: 800px;
+  /* height: 800px; */
   padding: 0;
   margin: 0;
-  background-color: black;
   font-family: 'Shadows Into Light', cursive;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .startingGame {
@@ -22,9 +18,9 @@ body {
 }
 
 .startImage {
-  /* position: absolute;
-  left: 45%;
-  top: 400px; */
+  position: absolute;
+  vertical-align: middle;
+  left: 31%;
   color: white;
   -webkit-animation: startImage 1s ease-out;
   -webkit-animation-iteration-count: infinite;
@@ -55,4 +51,9 @@ body {
   font-family: 'Shadows Into Light', cursive;
   font-size: 1.8em;
 
+}
+
+canvas {
+  position: absolute;
+  z-index: -10;
 }

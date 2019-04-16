@@ -12,7 +12,7 @@ In a broader theme of Escapism
 ******************/
 
 // prepping the project
-$(document).ready(setup);
+$(document).ready(jquerySetup);
 
 // defining the options variable, which will randomize the pitch and rate of responsiveVoice
 let options = {
@@ -37,10 +37,18 @@ let riddlesAnswered = 1;
 // setup
 //
 // initializing the project
-function setup() {
+function jquerySetup() {
 
   $(this).one('click', startChoice);
 
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+function draw() {
+  background("#ffffff");
 }
 
 // startChoice
@@ -48,6 +56,9 @@ function setup() {
 // first window that appears after clicking the screen
 // Player can choose an option which will start them off on a specific riddle
 function startChoice() {
+
+  // createCanvas(windowWidth, windowHeight +150);
+  // background("#ff0000");
 
   //remove the promt text
   $('.startImage').remove();
