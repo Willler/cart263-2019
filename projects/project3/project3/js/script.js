@@ -30,6 +30,10 @@ let clickSFX = new Audio("assets/sounds/effects.wav");
 let previousRiddle = '';
 let riddlesAnswered = 1;
 
+// // variables for randomizing location of dialog boxes
+// let horizontalOffset = Math.floor(Math.random() * 201) - 100;
+// let verticalOffset = Math.floor(Math.random() * 201) - 100;
+
 // setup
 //
 // initializing the project
@@ -83,11 +87,16 @@ function startChoice() {
 
     }
 
+  // variables for randomizing location of dialog boxes
+  let horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
+
   // defining parameters of the dialog window
   $(".startingGame").dialog({
   //position the dialog window in the center of the canvas
   position: {
-    at: "center"
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
   },
   // defining size
   height: 380,
@@ -146,10 +155,16 @@ function firstRiddle() {
         annyang.start();
     }
 
+  // variables for randomizing location of dialog boxes
+   horizontalOffset = Math.floor(Math.random() * 401) - 200;
+   verticalOffset = Math.floor(Math.random() * 401) - 200;
+
+
   $(".riddle1").dialog({
   //position the dialog window in the center of the canvas
   position: {
-    at: "center"
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
   },
   height: 380,
   width: 550,
@@ -206,10 +221,15 @@ function secondRiddle() {
         annyang.start();
     }
 
+    // variables for randomizing location of dialog boxes
+     horizontalOffset = Math.floor(Math.random() * 401) - 200;
+     verticalOffset = Math.floor(Math.random() * 401) - 200;
+
   $(".riddle2").dialog({
 
   position: {
-    at: "center"
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
   },
   height: 380,
   width: 550,
@@ -262,10 +282,15 @@ function thirdRiddle() {
         annyang.start();
     }
 
+    // variables for randomizing location of dialog boxes
+     horizontalOffset = Math.floor(Math.random() * 401) - 200;
+     verticalOffset = Math.floor(Math.random() * 401) - 200;
+
   $(".riddle3").dialog({
 
   position: {
-    at: "center"
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
   },
   height: 380,
   width: 550,
@@ -289,10 +314,16 @@ function firstTextGame() {
 
   $('body').append("<div class = 'game1'><div>");
   $('.game1').text("This is the first game, and the end of this trial.");
+
+  // variables for randomizing location of dialog boxes
+   horizontalOffset = Math.floor(Math.random() * 401) - 200;
+   verticalOffset = Math.floor(Math.random() * 401) - 200;
+
   $(".game1").dialog({
 
   position: {
-    at: "center"
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
   },
   height: 380,
   width: 550,
