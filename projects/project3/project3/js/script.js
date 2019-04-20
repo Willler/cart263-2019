@@ -36,6 +36,17 @@ let lockSFX = new Audio("assets/sounds/lockOpened.mp3");
 let riddlesMusic = new Audio("assets/sounds/riddlesMusic.mp3");
 let clickSFX = new Audio("assets/sounds/effects.wav");
 
+// assigning variables to text files for Rita functionality
+let hamletText;
+let jekyllText;
+let fellowshipText;
+let monteCristoText;
+let oldTestamentText;
+let petitPrinceText;
+
+// markov generator variable
+let markov;
+
 // riddle stuff
 let previousRiddle = '';
 let riddlesAnswered = 1;
@@ -49,7 +60,70 @@ let riddlesAnswered = 1;
 // initializing the project
 function jquerySetup() {
 
-  $(this).one('click', startChoice);
+  $.when(
+   // Load Hamlet
+   $.ajax({
+     url: 'data/hamlet.txt',
+     dataType: 'text',
+     success: function (data) {
+       // When loaded, we store the data (a string containing the book)
+       // in the appropriate variable
+       hamletText = data;
+     }
+   }),
+   // Load jekyll and Hyde
+   $.ajax({
+     url: 'data/jekyllHyde.txt',
+     dataType: 'text',
+     success: function (data) {
+       // When loaded, we store the data (a string containing the book)
+       // in the appropriate variable
+       jekyllText = data;
+     }
+   }),
+   //load lord of the rings
+   $.ajax({
+     url: 'data/lotrFellowship.txt',
+     dataType: 'text',
+     success: function (data) {
+       // When loaded, we store the data (a string containing the book)
+       // in the appropriate variable
+       fellowshipText = data;
+     }
+   }),
+   //load Count of Monte Cristo
+   $.ajax({
+     url: 'data/monteCristo.txt',
+     dataType: 'text',
+     success: function (data) {
+       // When loaded, we store the data (a string containing the book)
+       // in the appropriate variable
+       monteCristoText = data;
+     }
+   }),
+   // load the old testament
+   $.ajax({
+     url: 'data/oldTestament.txt',
+     dataType: 'text',
+     success: function (data) {
+       // When loaded, we store the data (a string containing the book)
+       // in the appropriate variable
+       oldTestamentText = data;
+     }
+   }),
+   // load the petit prince
+   $.ajax({
+     url: 'data/petitPrince.txt',
+     dataType: 'text',
+     success: function (data) {
+       // When loaded, we store the data (a string containing the book)
+       // in the appropriate variable
+       petitPrinceText = data;
+     }
+   })
+  ).then(gotData); // When finished we call gotData() to carry on with the show
+
+  $(this).one('click', firstTextGame);
 
 }
 
@@ -400,7 +474,39 @@ function thirdRiddle() {
 });
 }
 
+// gotData (data)
+//
+// Called when .ajax has loaded our two books.
+function gotData () {
+  // Join the two texts together into a single string
+  let allText = hamletText + ' ' + oldTestamentText;
+  // Create a Markov chain generator
+  markov = new RiMarkov(4);
+  // Load the string of both books into the Markov generator
+  markov.loadText(allText);
+  // Generate a paragraph of text
+  generateParagraph();
+  console.log('generated');
+}
+
+// generateParagraph()
+//
+// Clears the current texts and generates a new one in its place
+function generateParagraph() {
+  // Clear the current text
+  $('#content').text('');
+  // Generate ten sentences for our paragraph
+  // (Output is an array)
+  let sentenceArray = markov.generateSentences(20);
+  // Turn the array into a single string by joining with spaces
+  let sentenceText = sentenceArray.join(' ');
+  // Put the new text onto the page
+  $('#content').append(sentenceText);
+}
+
 function firstTextGame() {
+
+  gotData();
 
   console.log("game launched");
   $(".riddle1").remove();
@@ -409,7 +515,8 @@ function firstTextGame() {
 
 
   $('body').append("<div class = 'game1'><div>");
-  $('.game1').html("This is the first game, and the end of this trial.");
+  $('.game1').append("<div id = 'content'><div>");
+  $('.game1').html(gotData);
 
   // variables for randomizing location of dialog boxes
   let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
