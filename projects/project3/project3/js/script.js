@@ -21,8 +21,14 @@ let options = {
 };
 
 // variables for the pulsing background imagery
-var backgroundImageAngle = 0;
-var backgroundImageSize = 800;
+let backgroundImageAngle = 0;
+let backgroundImageSize = 800;
+
+// // variables for moving dots in the background
+// let dotX;
+// let dotY;
+// let dotVX;
+// let dotVY;
 
 // preloading the audio
 let answerSFX = new Audio("assets/sounds/sublayer.mp3");
@@ -49,6 +55,12 @@ function jquerySetup() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  // dotX = width/2;
+  // dotY = height/2;
+  //
+  // dotVX = 10;
+  // dotVY = 10;
 }
 
 function draw() {
@@ -66,15 +78,29 @@ function draw() {
   ellipse(width/2 - 200, height/2 - 50, backgroundImageSize/1.8 + imageGrowth);
   ellipse(width/2 + 300, height/2 + 200, backgroundImageSize/1.8 + imageGrowth);
 
+  //6th Layer
+  stroke(255);
+  strokeWeight(4);
+  line(150, 0, width, height);
+  line(0, height/2 + 300, width, 200);
+
   // 5th layer
+  noStroke();
   fill("#4d0000");
   ellipse(width/2 - 300, height/2 - 300, backgroundImageSize/1.5 + imageGrowth);
   ellipse(width/2 + 500, height/2 - 200, backgroundImageSize/1.5 + imageGrowth);
   ellipse(width/2 + 500, height/2 + 250, backgroundImageSize/1.5 + imageGrowth);
   ellipse(width/2 - 500, height/2 + 100, backgroundImageSize/1.5 + imageGrowth);
 
+  //4th layer
+  stroke(200);
+  strokeWeight(6);
+  line(0, 200, width, height/2);
+  line(width/2 + 100, 0, width/2 + 400, height);
+  line(200, height, width/2 + 350, 0);
 
   //3rd Layer
+  noStroke();
   fill("#330000");
   ellipse(200, 200, backgroundImageSize + imageGrowth);
   ellipse(200, height, backgroundImageSize + imageGrowth);
@@ -82,7 +108,16 @@ function draw() {
   ellipse(width, height/2, backgroundImageSize + imageGrowth);
   ellipse(width/2 + 400, height + 100, backgroundImageSize + imageGrowth);
 
+  //2nd layer
+  stroke(100);
+  strokeWeight(8);
+  line(width/2, height, width - 300, 0);
+  line(width, height, width/2 - 300, 0);
+  line(0, height/2, width - 300, 100);
+  // backgroundMovingObjects();
+
   //1st Layer
+  noStroke();
   fill("#1a0000");
   ellipse(width - 80, height - 100, backgroundImageSize + imageGrowth);
   ellipse(width - 300, 0, backgroundImageSize + imageGrowth);
@@ -90,16 +125,16 @@ function draw() {
   ellipse(width/2 - 280, -150, backgroundImageSize + imageGrowth);
   ellipse(width/2 - 100, height, backgroundImageSize + imageGrowth);
 
-  //2ND layer (roaming balls)
-
-
 
   backgroundImageAngle += 0.05;
 }
 
-function backgroundMovingObjects() {
-
-}
+// function backgroundMovingObjects() {
+//   dotX += dotVX;
+//   dotY += dotVY;
+//
+//   ellipse(dotX, dotY);
+// }
 
 // startChoice
 //
