@@ -135,7 +135,6 @@ function draw() {
 //
 //   ellipse(dotX, dotY);
 // }
-
 // startChoice
 //
 // first window that appears after clicking the screen
