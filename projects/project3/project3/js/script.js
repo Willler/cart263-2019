@@ -20,6 +20,10 @@ let options = {
   rate: Math.random()
 };
 
+// variables for the pulsing background imagery
+var backgroundImageAngle = 0;
+var backgroundImageSize = 800;
+
 // preloading the audio
 let answerSFX = new Audio("assets/sounds/sublayer.mp3");
 let lockSFX = new Audio("assets/sounds/lockOpened.mp3");
@@ -48,7 +52,53 @@ function setup() {
 }
 
 function draw() {
-  background("#ffffff");
+
+  background("#800000");
+
+  var imageGrowth = sin(backgroundImageAngle) * (backgroundImageSize/20);
+
+  //ellipse parameters
+  noStroke();
+  ellipseMode(CENTER);
+
+  //7th layer
+  fill("#660000");
+  ellipse(width/2 - 200, height/2 - 50, backgroundImageSize/1.8 + imageGrowth);
+  ellipse(width/2 + 300, height/2 + 200, backgroundImageSize/1.8 + imageGrowth);
+
+  // 5th layer
+  fill("#4d0000");
+  ellipse(width/2 - 300, height/2 - 300, backgroundImageSize/1.5 + imageGrowth);
+  ellipse(width/2 + 500, height/2 - 200, backgroundImageSize/1.5 + imageGrowth);
+  ellipse(width/2 + 500, height/2 + 250, backgroundImageSize/1.5 + imageGrowth);
+  ellipse(width/2 - 500, height/2 + 100, backgroundImageSize/1.5 + imageGrowth);
+
+
+  //3rd Layer
+  fill("#330000");
+  ellipse(200, 200, backgroundImageSize + imageGrowth);
+  ellipse(200, height, backgroundImageSize + imageGrowth);
+  ellipse(width/2 + 100, 0, backgroundImageSize + imageGrowth);
+  ellipse(width, height/2, backgroundImageSize + imageGrowth);
+  ellipse(width/2 + 400, height + 100, backgroundImageSize + imageGrowth);
+
+  //1st Layer
+  fill("#1a0000");
+  ellipse(width - 80, height - 100, backgroundImageSize + imageGrowth);
+  ellipse(width - 300, 0, backgroundImageSize + imageGrowth);
+  ellipse(50, height/2, backgroundImageSize + imageGrowth);
+  ellipse(width/2 - 280, -150, backgroundImageSize + imageGrowth);
+  ellipse(width/2 - 100, height, backgroundImageSize + imageGrowth);
+
+  //2ND layer (roaming balls)
+
+
+
+  backgroundImageAngle += 0.05;
+}
+
+function backgroundMovingObjects() {
+
 }
 
 // startChoice
@@ -167,8 +217,8 @@ function firstRiddle() {
     }
 
   // variables for randomizing location of dialog boxes
-   horizontalOffset = Math.floor(Math.random() * 401) - 200;
-   verticalOffset = Math.floor(Math.random() * 401) - 200;
+  let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
 
   $(".riddle1").dialog({
@@ -233,8 +283,8 @@ function secondRiddle() {
     }
 
     // variables for randomizing location of dialog boxes
-     horizontalOffset = Math.floor(Math.random() * 401) - 200;
-     verticalOffset = Math.floor(Math.random() * 401) - 200;
+    let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+    let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
   $(".riddle2").dialog({
 
@@ -294,8 +344,8 @@ function thirdRiddle() {
     }
 
     // variables for randomizing location of dialog boxes
-     horizontalOffset = Math.floor(Math.random() * 401) - 200;
-     verticalOffset = Math.floor(Math.random() * 401) - 200;
+    let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+    let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
   $(".riddle3").dialog({
 
@@ -327,8 +377,8 @@ function firstTextGame() {
   $('.game1').text("This is the first game, and the end of this trial.");
 
   // variables for randomizing location of dialog boxes
-   horizontalOffset = Math.floor(Math.random() * 401) - 200;
-   verticalOffset = Math.floor(Math.random() * 401) - 200;
+  let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
   $(".game1").dialog({
 
