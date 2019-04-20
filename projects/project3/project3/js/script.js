@@ -71,36 +71,6 @@ function jquerySetup() {
        hamletText = data;
      }
    }),
-   // Load jekyll and Hyde
-   $.ajax({
-     url: 'data/jekyllHyde.txt',
-     dataType: 'text',
-     success: function (data) {
-       // When loaded, we store the data (a string containing the book)
-       // in the appropriate variable
-       jekyllText = data;
-     }
-   }),
-   //load lord of the rings
-   $.ajax({
-     url: 'data/lotrFellowship.txt',
-     dataType: 'text',
-     success: function (data) {
-       // When loaded, we store the data (a string containing the book)
-       // in the appropriate variable
-       fellowshipText = data;
-     }
-   }),
-   //load Count of Monte Cristo
-   $.ajax({
-     url: 'data/monteCristo.txt',
-     dataType: 'text',
-     success: function (data) {
-       // When loaded, we store the data (a string containing the book)
-       // in the appropriate variable
-       monteCristoText = data;
-     }
-   }),
    // load the old testament
    $.ajax({
      url: 'data/oldTestament.txt',
@@ -111,17 +81,53 @@ function jquerySetup() {
        oldTestamentText = data;
      }
    }),
-   // load the petit prince
-   $.ajax({
-     url: 'data/petitPrince.txt',
-     dataType: 'text',
-     success: function (data) {
-       // When loaded, we store the data (a string containing the book)
-       // in the appropriate variable
-       petitPrinceText = data;
-     }
-   })
-  ).then(gotData); // When finished we call gotData() to carry on with the show
+ ).then(gotHamletTestamentData); // When finished we call gotHamletTestamentData() to carry on with the show
+
+ $.when(
+     // Load jekyll and hyde text
+     $.ajax({
+       url: 'data/jekyllHyde.txt',
+       dataType: 'text',
+       success: function (data) {
+         // When loaded, we store the data (a string containing the book)
+         // in the appropriate variable
+         jekyllText = data;
+       }
+     }),
+     // Load lord of the rings text
+     $.ajax({
+       url: 'data/lotrFellowship.txt',
+       dataType: 'text',
+       success: function (data) {
+         // When loaded, we store the data (a string containing the book)
+         // in the appropriate variable
+         fellowshipText = data;
+       }
+     })
+   ).then(gotJekyllFellowshipData); // When finished we call gotData() to carry on with the show
+
+   $.when(
+       // Load the Count of Monte Cristo
+       $.ajax({
+         url: 'data/monteCristo.txt',
+         dataType: 'text',
+         success: function (data) {
+           // When loaded, we store the data (a string containing the book)
+           // in the appropriate variable
+           monteCristoText = data;
+         }
+       }),
+       // Load le Petit Prince
+       $.ajax({
+         url: 'data/petitPrince.txt',
+         dataType: 'text',
+         success: function (data) {
+           // When loaded, we store the data (a string containing the book)
+           // in the appropriate variable
+           petitPrinceText = data;
+         }
+       })
+     ).then(gotMontePrinceData); // When finished we call gotData() to carry on with the show
 
   $(this).one('click', firstTextGame);
 
@@ -477,9 +483,39 @@ function thirdRiddle() {
 // gotData (data)
 //
 // Called when .ajax has loaded our two books.
-function gotData () {
+function gotHamletTestamentData () {
   // Join the two texts together into a single string
   let allText = hamletText + ' ' + oldTestamentText;
+  // Create a Markov chain generator
+  markov = new RiMarkov(4);
+  // Load the string of both books into the Markov generator
+  markov.loadText(allText);
+  // Generate a paragraph of text
+  generateParagraph();
+  console.log('generated');
+}
+
+// gotData (data)
+//
+// Called when .ajax has loaded our two books.
+function gotJekyllFellowshipData () {
+  // Join the two texts together into a single string
+  let allText = jekyllText + ' ' + fellowshipText;
+  // Create a Markov chain generator
+  markov = new RiMarkov(4);
+  // Load the string of both books into the Markov generator
+  markov.loadText(allText);
+  // Generate a paragraph of text
+  generateParagraph();
+  console.log('generated');
+}
+
+// gotData (data)
+//
+// Called when .ajax has loaded our two books.
+function gotMontePrinceData () {
+  // Join the two texts together into a single string
+  let allText = monteCristoText + ' ' + petitPrinceText;
   // Create a Markov chain generator
   markov = new RiMarkov(4);
   // Load the string of both books into the Markov generator
@@ -506,8 +542,6 @@ function generateParagraph() {
 
 function firstTextGame() {
 
-  gotData();
-
   console.log("game launched");
   $(".riddle1").remove();
   $(".riddle2").remove();
@@ -516,11 +550,40 @@ function firstTextGame() {
 
   $('body').append("<div class = 'game1'><div>");
   $('.game1').append("<div id = 'content'><div>");
-  $('.game1').html(gotData);
+  $('.game1').html(gotHamletTestamentData);
 
   // variables for randomizing location of dialog boxes
   let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
   let verticalOffset = Math.floor(Math.random() * 401) - 200;
+
+  if (annyang) {
+        var commands = {
+          'hamlet': function() {
+            setTimeout(secondTextGame, 3000);
+            responsiveVoice.speak("A shakespearean classic, of course.", 'UK English Male');
+            console.log('annyang working');
+
+          },
+          'shakespear': function() {
+            setTimeout(secondTextGame, 3000);
+            responsiveVoice.speak("Good enough.", 'UK English Female');
+            console.log('annyang working');
+          },
+          'old testament': function() {
+            setTimeout(secondTextGame, 3000);
+            responsiveVoice.speak("A holy scripture. Of course you know about it.", 'UK English Female');
+            console.log('annyang working');
+          },
+          'bible': function() {
+            setTimeout(secondTextGame, 3000);
+            responsiveVoice.speak("A little vague, but it does the job.", 'Spanish Female');
+            console.log('annyang working');
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+    }
 
   $(".game1").dialog({
 
@@ -533,9 +596,43 @@ function firstTextGame() {
   close: function() {
     responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
     $(".game1").remove();
-    setTimeout(thirdRiddle, 5000);
+    setTimeout(firstTextGame, 5000);
   },
   closeOnEscape: false,
   title: "The Second Layer - Game 1"
   });
+}
+
+//secondTextGame()
+//
+// the second minigame involving Rita
+function secondTextGame() {
+
+  $('.game1').remove();
+
+  $('body').append("<div class = 'game2'><div>");
+  $('.game2').append("<div id = 'content'><div>");
+  $('.game2').html(gotJekyllFellowshipData);
+
+  // variables for randomizing location of dialog boxes
+  let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
+
+  $(".game2").dialog({
+
+  position: {
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    $(".game2").remove();
+    setTimeout(thirdRiddle, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Second Layer - Game 2"
+  });
+
 }
