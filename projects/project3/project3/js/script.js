@@ -135,6 +135,7 @@ function draw() {
 //
 //   ellipse(dotX, dotY);
 // }
+
 // startChoice
 //
 // first window that appears after clicking the screen
@@ -153,7 +154,7 @@ function startChoice() {
   console.log("First Minigame - Initiated");
 
   // define the text contained within the dialog window
-  $(".startingGame").text("You close your eyes, removing yourself from reality. You can't help it. After all, it is just another s****y game. You look inside yourself, what do you see? [Choose Contempt, fear, or hopelessness]");
+  $(".startingGame").html("You are suffocating at the bottom of the abyss, removed from the outside world. You had always known life to be an unwinnable game; a journey without purpose. When thinking of the hand you've been dealt, a single emotion surges forward. You felt... <br> <br> [Contempt]   [Fear]  [Hopelessness]");
 
   if (annyang) {
         var commands = {
@@ -194,7 +195,7 @@ function startChoice() {
     at: `center`+ horizontalOffset
   },
   // defining size
-  height: 380,
+  height: 450,
   width: 550,
   // what will happen when clicking the 'x' button
   close: function() {
@@ -206,7 +207,7 @@ function startChoice() {
   // removes ability to close window with the escape key
   closeOnEscape: false,
   // title of the window
-  title: "Crossroads - Eye of the Mind"
+  title: "Submerged"
 });
 
 }
@@ -219,7 +220,7 @@ function firstRiddle() {
   console.log("First Riddle - Initiated");
   $('body').append("<div class = 'riddle1'><div>");
 
-  $(".riddle1").text("A prisoner is told 'If you tell a lie we will hang you; if you tell the truth we will shoot you' What can he say to save himself?");
+  $(".riddle1").html("A prisoner is told 'If you tell a lie we will hang you; if you tell the truth we will shoot you' What can he say to save himself?");
 
   //annyang functionality
   if (annyang) {
@@ -285,7 +286,7 @@ function secondRiddle() {
   $('body').append("<div class = 'riddle2'><div>");
   console.log("Second Riddle - Initiated");
 
-  $(".riddle2").text("A murderer is condemned to death. He has to choose between three rooms. The first is full of raging fires, the second is full of assassins with loaded guns, and the third is full of lions that haven't eaten in 3 years. Which room is safest for him?")
+  $(".riddle2").html("A murderer is condemned to death. He has to choose between three rooms. The first is full of raging fires, the second is full of assassins with loaded guns, and the third is full of lions that haven't eaten in 3 years. Which room is safest for him?")
 
   if (annyang) {
         var commands = {
@@ -347,7 +348,7 @@ function thirdRiddle() {
   $('body').append("<div class = 'riddle3'><div>");
   console.log("Third Riddle - Initiated");
 
-  $(".riddle3").text("They are Dark, and always on the run. Without the sun, there would be none.");
+  $(".riddle3").html("They are Dark, and always on the run. Without the sun, there would be none.");
 
   if (annyang) {
         var commands = {
@@ -408,7 +409,7 @@ function firstTextGame() {
 
 
   $('body').append("<div class = 'game1'><div>");
-  $('.game1').text("This is the first game, and the end of this trial.");
+  $('.game1').html("This is the first game, and the end of this trial.");
 
   // variables for randomizing location of dialog boxes
   let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
