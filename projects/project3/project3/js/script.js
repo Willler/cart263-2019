@@ -51,10 +51,8 @@ let markov;
 let previousRiddle = '';
 let riddlesAnswered = 1;
 
-// // variables for randomizing location of dialog boxes
-// let horizontalOffset = Math.floor(Math.random() * 201) - 100;
-// let verticalOffset = Math.floor(Math.random() * 201) - 100;
-
+// variable to initiate background after click
+let heartClicked = false;
 // setup
 //
 // initializing the project
@@ -129,7 +127,7 @@ function jquerySetup() {
        })
      ).then(gotMontePrinceData); // When finished we call gotData() to carry on with the show
 
-  $(this).one('click', firstTextGame);
+  $(this).one('click', startChoice);
 
 }
 
@@ -145,6 +143,9 @@ function setup() {
 
 function draw() {
 
+if (!heartClicked) {
+  background(255);
+} else {
   background("#800000");
 
   var imageGrowth = sin(backgroundImageAngle) * (backgroundImageSize/20);
@@ -207,6 +208,7 @@ function draw() {
 
 
   backgroundImageAngle += 0.05;
+ }
 }
 
 // function backgroundMovingObjects() {
@@ -222,11 +224,9 @@ function draw() {
 // Player can choose an option which will start them off on a specific riddle
 function startChoice() {
 
-  // createCanvas(windowWidth, windowHeight +150);
-  // background("#ff0000");
-
   //remove the promt text
   $('.startImage').remove();
+  heartClicked = true;
   riddlesMusic.play();
 
   // append the div which contains the popup
@@ -287,7 +287,7 @@ function startChoice() {
   // removes ability to close window with the escape key
   closeOnEscape: false,
   // title of the window
-  title: "Submerged"
+  title: "The Abyss - Submerged"
 });
 
 }
@@ -350,7 +350,7 @@ function firstRiddle() {
     setTimeout(firstRiddle, 5000);
   },
   closeOnEscape: false,
-  title: "The First Riddle"
+  title: "The First Layer - Rememberance (1)"
 });
 }
 
@@ -415,7 +415,7 @@ function secondRiddle() {
     setTimeout(secondRiddle, 5000);
   },
   closeOnEscape: false,
-  title: "The Second Riddle"
+  title: "The First Layer - Rememberance (2)"
 });
 
 }
@@ -476,7 +476,7 @@ function thirdRiddle() {
     setTimeout(thirdRiddle, 5000);
   },
   closeOnEscape: false,
-  title: "The Third Riddle"
+  title: "The First Layer - Rememberance (3)"
 });
 }
 
@@ -599,7 +599,7 @@ function firstTextGame() {
     setTimeout(firstTextGame, 5000);
   },
   closeOnEscape: false,
-  title: "The Second Layer - Game 1"
+  title: "The Second Layer - Restoration (1)"
   });
 }
 
@@ -618,6 +618,35 @@ function secondTextGame() {
   let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
   let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
+  if (annyang) {
+        var commands = {
+          'strange case of doctor jekyll and mister hyde': function() {
+            setTimeout(thirdTextGame, 3000);
+            responsiveVoice.speak("Examplary work. Everything seems clearer now.", 'UK English Male');
+            console.log('annyang working');
+
+          },
+          'jekyll and hyde': function() {
+            setTimeout(thirdTextGame, 3000);
+            responsiveVoice.speak("Correct. Another lock bursts open.", 'UK English Female');
+            console.log('annyang working');
+          },
+          'lord of the rings': function() {
+            setTimeout(thirdTextGame, 3000);
+            responsiveVoice.speak("You always wished you could put it on as well.", 'UK English Female');
+            console.log('annyang working');
+          },
+          'fellowship of the ring': function() {
+            setTimeout(thirdTextGame, 3000);
+            responsiveVoice.speak("Precisely. The misty veil parts once more.", 'Spanish Female');
+            console.log('annyang working');
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+    }
+
   $(".game2").dialog({
 
   position: {
@@ -629,10 +658,107 @@ function secondTextGame() {
   close: function() {
     responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
     $(".game2").remove();
-    setTimeout(thirdRiddle, 5000);
+    setTimeout(secondTextGame, 5000);
   },
   closeOnEscape: false,
-  title: "The Second Layer - Game 2"
+  title: "The Second Layer - Restoration (2)"
   });
+
+}
+
+// thirdTextGame()
+//
+// the second minigame involving Rita, this time with the Count of Monte Cristo and Le Petit Prince
+function thirdTextGame() {
+
+  $('.game2').remove();
+
+  $('body').append("<div class = 'game3'><div>");
+  $('.game3').append("<div id = 'content'><div>");
+  $('.game3').html(gotMontePrinceData);
+
+  // variables for randomizing location of dialog boxes
+  let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
+
+  if (annyang) {
+        var commands = {
+          'count of monte cristo': function() {
+            setTimeout(firstQuestion, 3000);
+            responsiveVoice.speak("Wait and hope; Words you've always gone by.", 'UK English Male');
+            console.log('annyang working');
+
+          },
+          'monte cristo': function() {
+            setTimeout(firstQuestion, 3000);
+            responsiveVoice.speak("An unimaginable treasure. You wish you had such fortune.", 'UK English Female');
+            console.log('annyang working');
+          },
+          'le petit prince': function() {
+            setTimeout(firstQuestion, 3000);
+            responsiveVoice.speak("Une aventure qui a du coeur. Tu en es jaloux.", 'French Female');
+            console.log('annyang working');
+          },
+          'little prince': function() {
+            setTimeout(firstQuestion, 3000);
+            responsiveVoice.speak("An emotional tale that changed your youth.", 'UK English Female');
+            console.log('annyang working');
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+    }
+
+  $(".game3").dialog({
+
+  position: {
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    $(".game3").remove();
+    setTimeout(thirdTextGame, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Second Layer - Restoration (3)"
+  });
+
+}
+
+function firstQuestion() {
+  $('.game3').remove();
+
+  $('body').append("<div class = 'question1'><div>");
+
+  $('.question1').html("Is there such a thing as destiny?");
+
+  $(".question1").dialog({
+
+  position: {
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    $(".game3").remove();
+    setTimeout(secondQuestion, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Third Layer - Resurgeance (1)"
+  });
+
+}
+
+function secondQuestion() {
+
+}
+
+function thirdQuestion() {
 
 }
