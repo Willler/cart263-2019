@@ -47,13 +47,25 @@ body {
     }
 }
 
-.startingGame, .firstRiddle, .secondRiddle, .thirdRiddle {
+/* .startingGame, .firstRiddle, .secondRiddle, .thirdRiddle {
   font-family: 'Shadows Into Light', cursive;
   font-size: 1.8em;
 
-}
+} */
 
 canvas {
   position: absolute;
   z-index: -10;
+}
+
+.introGif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
 }

@@ -4,6 +4,8 @@
 * To view and modify this theme, visit http://jqueryui.com/themeroller/?scope=&folderName=custom-theme&bgImgOpacityError=&bgImgOpacityHighlight=&bgImgOpacityActive=&bgImgOpacityHover=&bgImgOpacityDefault=&bgImgOpacityContent=&bgImgOpacityHeader=&cornerRadiusShadow=8px&offsetLeftShadow=0px&offsetTopShadow=0px&thicknessShadow=5px&opacityShadow=30&bgImgOpacityShadow=0&bgTextureShadow=flat&bgColorShadow=%23666666&opacityOverlay=30&bgImgOpacityOverlay=0&bgTextureOverlay=flat&bgColorOverlay=%23aaaaaa&iconColorError=%23cc0000&fcError=%235f3f3f&borderColorError=%23f1a899&bgTextureError=flat&bgColorError=%23fddfdf&iconColorHighlight=%23ffffff&fcHighlight=%23ffffff&borderColorHighlight=%23000000&bgTextureHighlight=flat&bgColorHighlight=%23901415&iconColorActive=%23ffffff&fcActive=%23ffffff&borderColorActive=%23000000&bgTextureActive=flat&bgColorActive=%232b274f&iconColorHover=%23ffffff&fcHover=%23ffffff&borderColorHover=%23cccccc&bgTextureHover=flat&bgColorHover=%23000000&iconColorDefault=%23000000&fcDefault=%23000000&borderColorDefault=%23000000&bgTextureDefault=flat&bgColorDefault=%23b3b3b3&iconColorContent=%23ffffff&fcContent=%23ffffff&borderColorContent=%23000000&bgTextureContent=flat&bgColorContent=%23000000&iconColorHeader=%23ffffff&fcHeader=%23ffffff&borderColorHeader=%23000000&bgTextureHeader=flat&bgColorHeader=%23600d06&cornerRadius=3px&fwDefault=normal&fsDefault=1em&ffDefault=Arial%2CHelvetica%2Csans-serif
 * Copyright jQuery Foundation and other contributors; Licensed MIT */
 
+@import url('https://fonts.googleapis.com/css?family=Bitter');
+
 .ui-draggable-handle {
 	-ms-touch-action: none;
 	touch-action: none;
@@ -884,17 +886,17 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Arial,Helvetica,sans-serif;
-	font-size: 1em;
+	font-family: 'Bitter', serif;;
+	font-size: 2em;
 }
 .ui-widget .ui-widget {
-	font-size: 1em;
+	font-size: 2em;
 }
 .ui-widget input,
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Arial,Helvetica,sans-serif;
+	font-family: 'Bitter', serif;;
 	font-size: 1em;
 }
 .ui-widget.ui-widget-content {

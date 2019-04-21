@@ -66,6 +66,11 @@ let dotsCount = 50;
 // initializing the project
 function jquerySetup() {
 
+  setTimeout( function(){
+    $('.introGif').remove();
+    $('.startImage').add();
+  }  , 5500 );
+
   $.when(
    // Load Hamlet
    $.ajax({
@@ -156,6 +161,18 @@ function draw() {
 
 if (!heartClicked) {
   background(255);
+  stroke(0);
+  strokeWeight(16);
+  line(100, 0, width, height - 100);
+  strokeWeight(14);
+  line(800, 0, width - 600, height);
+  strokeWeight(26);
+  line(200, height, width, 200);
+  strokeWeight(6);
+  line(0, height/2, width, height - 400);
+  strokeWeight(36);
+  line(width/2, 0, width/2 - 100, height);
+
 } else {
   background("#800000");
 
