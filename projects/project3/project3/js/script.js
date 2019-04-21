@@ -53,6 +53,10 @@ let riddlesAnswered = 1;
 
 // variable to initiate background after click
 let heartClicked = false;
+
+// counter for the existential questions, this will alter the next question received. 0 will one path, 1 the other
+let questionChoice;
+
 // setup
 //
 // initializing the project
@@ -736,6 +740,28 @@ function firstQuestion() {
 
   $('.question1').html("Is there such a thing as destiny?");
 
+  if (annyang) {
+        var commands = {
+          'yes': function() {
+            setTimeout(secondQuestion, 3000);
+            responsiveVoice.speak("You were content to lie to and float down the river of time.", 'UK English Male');
+            console.log('annyang working');
+            questionChoice = 0;
+
+          },
+          'no': function() {
+            setTimeout(secondQuestion, 3000);
+            responsiveVoice.speak("You operate the forge, hammering away without stop.", 'UK English Female');
+            console.log('annyang working');
+            questionChoice = 1;
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+    }
+
+
   $(".question1").dialog({
 
   position: {
@@ -746,7 +772,7 @@ function firstQuestion() {
   width: 550,
   close: function() {
     responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
-    $(".game3").remove();
+    $(".question1").remove();
     setTimeout(secondQuestion, 5000);
   },
   closeOnEscape: false,
@@ -756,9 +782,210 @@ function firstQuestion() {
 }
 
 function secondQuestion() {
+  $('.question1').remove();
+
+  $('body').append("<div class = 'question2'><div>");
+
+  if(questionChoice === 1) {
+    $('.question2').html("If you could watch everything that happened in your life until now, would you enjoy it?");
+
+    if (annyang) {
+          var commands = {
+            'yes': function() {
+              setTimeout(thirdQuestion, 3000);
+              responsiveVoice.speak("Looking back, it wasn't so bad, was it?", 'UK English Male');
+              console.log('annyang working');
+              questionChoice = 0;
+
+            },
+            'no': function() {
+              setTimeout(thirdQuestion, 3000);
+              responsiveVoice.speak("You have a lot of dreams you gave up on, and even more regrets.", 'UK English Female');
+              console.log('annyang working');
+              questionChoice = 1;
+            }
+          }
+          // annyang functionality
+          annyang.addCommands(commands);
+          annyang.start();
+      }
+
+  } else {
+    $('.question2').html("Do you believe in a power greater than humanity?");
+
+    if (annyang) {
+          var commands = {
+            'yes': function() {
+              setTimeout(fourthQuestion, 3000);
+              responsiveVoice.speak("You've embraced powerlessness long ago.", 'UK English Male');
+              console.log('annyang working');
+              questionChoice = 0;
+
+            },
+            'no': function() {
+              setTimeout(fourthQuestion, 3000);
+              responsiveVoice.speak("Despite your inaction, you believe in the strength of humanity.", 'UK English Female');
+              console.log('annyang working');
+              questionChoice = 1;
+            }
+          }
+          // annyang functionality
+          annyang.addCommands(commands);
+          annyang.start();
+      }
+  }
+
+  $(".question2").dialog({
+
+  position: {
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    $(".question2").remove();
+    setTimeout(secondQuestion, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Third Layer - Resurgeance (2)"
+  });
 
 }
 
 function thirdQuestion() {
+  $('.question2').remove();
+
+  $('body').append("<div class = 'question3'><div>");
+
+  if(questionChoice === 1) {
+    $('.question3').html("In that case, if you could go back to the very beginning and start over, would you do it?");
+
+    if (annyang) {
+          var commands = {
+            'yes': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("Maybe then time you would make it right. You wouldn't look away.", 'UK English Male');
+              console.log('annyang working');
+            },
+            'no': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("You have accepted what you've become. Forward is the only way.", 'UK English Female');
+              console.log('annyang working');
+            }
+          }
+          // annyang functionality
+          annyang.addCommands(commands);
+          annyang.start();
+      }
+
+  } else {
+    $('.question3').html("In that case, are you satisfied with the road life has led you to take?");
+
+    if (annyang) {
+          var commands = {
+            'yes': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("You acknowledge yourself. Forward us the only way.", 'UK English Male');
+              console.log('annyang working');
+            },
+            'no': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("Not exactly, anyway. Satisfaction makes a hard bargain.", 'UK English Female');
+              console.log('annyang working');
+            }
+          }
+          // annyang functionality
+          annyang.addCommands(commands);
+          annyang.start();
+      }
+  }
+
+  $(".question3").dialog({
+
+  position: {
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    $(".question3").remove();
+    setTimeout(thirdQuestion, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Third Layer - Resurgeance (3)"
+  });
+}
+
+function fourthQuestion() {
+  $('.question2').remove();
+
+  $('body').append("<div class = 'question4'><div>");
+
+  if(questionChoice === 1) {
+    $('.question4').html("In that case, are you the one in control of your life?");
+
+    if (annyang) {
+          var commands = {
+            'yes': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("You finally realize that you hold the reins.", 'UK English Male');
+              console.log('annyang working');
+            },
+            'no': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("Mist surrounds you, a single thread around your neck dragging you.", 'UK English Female');
+              console.log('annyang working');
+            }
+          }
+          // annyang functionality
+          annyang.addCommands(commands);
+          annyang.start();
+      }
+
+  } else {
+    $('.question4').html("Does that entity define you?");
+
+    if (annyang) {
+          var commands = {
+            'yes': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("You left things outside of your control to another.", 'UK English Male');
+              console.log('annyang working');
+            },
+            'no': function() {
+              setTimeout(awakenFromDream, 3000);
+              responsiveVoice.speak("You acknowledge your weakness, but look past it.", 'UK English Female');
+              console.log('annyang working');
+            }
+          }
+          // annyang functionality
+          annyang.addCommands(commands);
+          annyang.start();
+      }
+  }
+
+  $(".question4").dialog({
+
+  position: {
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    $(".question4").remove();
+    setTimeout(secondQuestion, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Third Layer - Resurgeance (3)"
+  });
+}
+
+function awakenFromDream() {
 
 }
