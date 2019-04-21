@@ -57,6 +57,10 @@ let heartClicked = false;
 // counter for the existential questions, this will alter the next question received. 0 will one path, 1 the other
 let questionChoice;
 
+// variable for the dots moving in the background, using oop
+let movingDots = [];
+let dotsCount = 50;
+
 // setup
 //
 // initializing the project
@@ -138,11 +142,14 @@ function jquerySetup() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  // dotX = width/2;
-  // dotY = height/2;
-  //
-  // dotVX = 10;
-  // dotVY = 10;
+  // creating the dots object array
+  for (var i = 0; i < dotsCount; i++) {
+
+    movingDots.push(new Dots(random(50,950),0,random(-1,1),random(3,7),6,5,5));
+
+  }
+
+
 }
 
 function draw() {
@@ -178,6 +185,12 @@ if (!heartClicked) {
   ellipse(width/2 - 500, height/2 + 100, backgroundImageSize/1.5 + imageGrowth);
 
   //4th layer
+  // call the rain.js functions through the array
+    for (var i = 0; i < movingDots.length; i++) {
+      movingDots[i].update();
+      movingDots[i].display();
+      movingDots[i].touchedBottom();
+    }
   stroke(200);
   strokeWeight(6);
   line(0, 200, width, height/2);
@@ -365,6 +378,7 @@ function secondRiddle() {
   $(".startingGame").remove();
   $(".riddle1").remove();
   $('.riddle2').remove();
+  $('.riddle3').remove();
 
 
   $('body').append("<div class = 'riddle2'><div>");
@@ -428,6 +442,7 @@ function thirdRiddle() {
   $(".startingGame").remove();
   $(".riddle1").remove();
   $(".riddle2").remove();
+  $('.riddle3').remove();
 
   $('body').append("<div class = 'riddle3'><div>");
   console.log("Third Riddle - Initiated");
@@ -761,6 +776,10 @@ function firstQuestion() {
         annyang.start();
     }
 
+    // variables for randomizing location of dialog boxes
+    let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+    let verticalOffset = Math.floor(Math.random() * 401) - 200;
+
 
   $(".question1").dialog({
 
@@ -788,6 +807,10 @@ function secondQuestion() {
 
   if(questionChoice === 1) {
     $('.question2').html("If you could watch everything that happened in your life until now, would you enjoy it?");
+
+    // variables for randomizing location of dialog boxes
+    let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+    let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
     if (annyang) {
           var commands = {
@@ -859,6 +882,10 @@ function thirdQuestion() {
 
   $('body').append("<div class = 'question3'><div>");
 
+  // variables for randomizing location of dialog boxes
+  let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
+
   if(questionChoice === 1) {
     $('.question3').html("In that case, if you could go back to the very beginning and start over, would you do it?");
 
@@ -924,6 +951,10 @@ function fourthQuestion() {
   $('.question2').remove();
 
   $('body').append("<div class = 'question4'><div>");
+
+  // variables for randomizing location of dialog boxes
+  let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
   if(questionChoice === 1) {
     $('.question4').html("In that case, are you the one in control of your life?");
