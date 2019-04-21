@@ -28,10 +28,6 @@ body {
   width: 720px;
 }
 
-.startImage:hover {
-  cursor: pointer;
-}
-
 @-webkit-keyframes startImage {
     0% {
         opacity: 0.5;

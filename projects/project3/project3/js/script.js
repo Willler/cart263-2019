@@ -58,7 +58,9 @@ let riddlesAnswered = 1;
 let heartClicked = false;
 
 // counter for the existential questions, this will alter the next question received. 0 will one path, 1 the other
-let questionChoice;
+let questionChoice1;
+let questionChoice2;
+let questionChoice3;
 
 // variable for the dots moving in the background, using oop
 let movingDots = [];
@@ -66,6 +68,11 @@ let dotsCount = 50;
 
 // variables to change music throughout the project
 let musicPlaying;
+
+// variables for color scheme change
+let redValue;
+let greenValue;
+let blueValue;
 
 // setup
 //
@@ -146,7 +153,18 @@ function jquerySetup() {
        })
      ).then(gotMontePrinceData); // When finished we call gotData() to carry on with the show
 
-  $(this).one('click', startChoice);
+  // $(this).one('click', startChoice);
+
+  if (annyang) {
+        var commands = {
+          'launch': function() {
+            setTimeout(firstTextGame, 500);
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+    }
 
 }
 
@@ -177,8 +195,8 @@ function setup() {
 function draw() {
 
 if (!heartClicked) {
-  background(255);
-  stroke(0);
+  background(26,0,0);
+  stroke(100);
   strokeWeight(16);
   line(100, 0, width, height - 100);
   strokeWeight(14);
@@ -192,12 +210,13 @@ if (!heartClicked) {
 
   rectMode(CENTER);
   strokeWeight(4);
-  textSize(52);
-  stroke(255, 0, 0);
-  text('Say [ Launch ] to begin...', width/2, height/2 + 200);
+  textSize(36);
+  fill(255);
+  text('Please accept Mic access', width/2 + 150, 200);
+  text('and say [Launch] to begin', width/2 + 150, 250);
 
 } else {
-  background("#800000");
+  background(redValue*5, greenValue*5, blueValue*5);
 
   var imageGrowth = sin(backgroundImageAngle) * (backgroundImageSize/20);
 
@@ -206,7 +225,7 @@ if (!heartClicked) {
   ellipseMode(CENTER);
 
   //7th layer
-  fill("#660000");
+  fill(redValue*4, greenValue*4, blueValue*4);
   ellipse(width/2 - 200, height/2 - 50, backgroundImageSize/1.8 + imageGrowth);
   ellipse(width/2 + 300, height/2 + 200, backgroundImageSize/1.8 + imageGrowth);
 
@@ -218,7 +237,7 @@ if (!heartClicked) {
 
   // 5th layer
   noStroke();
-  fill("#4d0000");
+  fill(redValue*3, greenValue*3, blueValue*3);
   ellipse(width/2 - 300, height/2 - 300, backgroundImageSize/1.5 + imageGrowth);
   ellipse(width/2 + 500, height/2 - 200, backgroundImageSize/1.5 + imageGrowth);
   ellipse(width/2 + 500, height/2 + 250, backgroundImageSize/1.5 + imageGrowth);
@@ -239,7 +258,7 @@ if (!heartClicked) {
 
   //3rd Layer
   noStroke();
-  fill("#330000");
+  fill(redValue*2, greenValue*2, blueValue*2);
   ellipse(200, 200, backgroundImageSize + imageGrowth);
   ellipse(200, height, backgroundImageSize + imageGrowth);
   ellipse(width/2 + 100, 0, backgroundImageSize + imageGrowth);
@@ -256,7 +275,7 @@ if (!heartClicked) {
 
   //1st Layer
   noStroke();
-  fill("#1a0000");
+  fill(redValue, greenValue, blueValue);
   ellipse(width - 80, height - 100, backgroundImageSize + imageGrowth);
   ellipse(width - 300, 0, backgroundImageSize + imageGrowth);
   ellipse(50, height/2, backgroundImageSize + imageGrowth);
@@ -270,17 +289,34 @@ if (!heartClicked) {
 
 function currentMusic() {
   if (musicPlaying === 0) {
-    riddleMusic.setVolume(0.5);
+    riddleMusic.setVolume(0.1);
     riddleMusic.play();
-    riddleMusic.loop = true;
+    riddleMusic.loop();
+
+    redValue = 26;
+    greenValue = 0;
+    blueValue = 0;
+
   } else if (musicPlaying === 1) {
-    riddleMusic.pause();
+    riddleMusic.stop();
+    textMusic.setVolume(0.1);
     textMusic.play();
-    textMusic.loop = true;
+    textMusic.loop();
+
+    redValue = 0;
+    greenValue= 26;
+    blueValue = 0;
+
   } else if (musicPlaying === 2) {
-    textMusic.pause();
+    textMusic.stop();
+
+    questionsMusic.setVolume(0.1);
     questionsMusic.play();
-    questionsMusic.loop = true;
+    questionsMusic.loop();
+
+    redValue = 0;
+    greenValue = 0;
+    blueValue = 26;
   }
 }
 
@@ -370,7 +406,7 @@ function firstRiddle() {
   console.log("First Riddle - Initiated");
   $('body').append("<div class = 'riddle1'><div>");
 
-  $(".riddle1").html("A prisoner is told 'If you tell a lie we will hang you; if you tell the truth we will shoot you' What can he say to save himself?");
+  $(".riddle1").html("You struggle through the murky waters of your own mind. You quiz yourself to try and get your thoughts back in order: <br> <br> A prisoner is told 'If you tell a lie we will hang you; if you tell the truth we will shoot you' What can he say to save himself?");
 
   //annyang functionality
   if (annyang) {
@@ -437,7 +473,7 @@ function secondRiddle() {
   $('body').append("<div class = 'riddle2'><div>");
   console.log("Second Riddle - Initiated");
 
-  $(".riddle2").html("A murderer is condemned to death. He has to choose between three rooms. The first is full of raging fires, the second is full of assassins with loaded guns, and the third is full of lions that haven't eaten in 3 years. Which room is safest for him?")
+  $(".riddle2").html("You struggle through the murky waters of your own mind. You quiz yourself to try and get your thoughts back in order: <br> <br> A murderer is condemned to death. He has to choose between three rooms. The first is full of raging fires, the second is full of assassins with loaded guns, and the third is full of lions that haven't eaten in 3 years. Which room is safest for him?")
 
   if (annyang) {
         var commands = {
@@ -461,6 +497,28 @@ function secondRiddle() {
             console.log('annyang working');
             riddlesAnswered++;
             previousRiddle = 'second';
+          },
+          'the third': function() {
+
+            if (previousRiddle === '' && riddlesAnswered < 3) {
+              setTimeout(firstRiddle, 5000);
+              answerSFX.play();
+            } else if (previousRiddle === 'first' && riddlesAnswered < 3) {
+              setTimeout(thirdRiddle, 5000);
+              answerSFX.play();
+            } else if (previousRiddle === ' third' && riddlesAnswered < 3) {
+              setTimeout(firstRiddle, 5000);
+              answerSFX.play();
+            } else if (riddlesAnswered === 3) {
+              setTimeout(firstTextGame, 5000);
+              lockSFX.play();
+            }
+
+            responsiveVoice.speak("Correct. Lions that have not eaten in three years are dead.", 'Spanish Female');
+            console.log('annyang working');
+            riddlesAnswered++;
+            previousRiddle = 'second';
+
           }
         }
         // annyang functionality
@@ -500,7 +558,7 @@ function thirdRiddle() {
   $('body').append("<div class = 'riddle3'><div>");
   console.log("Third Riddle - Initiated");
 
-  $(".riddle3").html("They are Dark, and always on the run. Without the sun, there would be none.");
+  $(".riddle3").html("You struggle through the murky waters of your own mind. You quiz yourself to try and get your thoughts back in order: <br> <br> They are Dark, and always on the run. Without the sun, there would be none.");
 
   if (annyang) {
         var commands = {
@@ -622,7 +680,6 @@ function firstTextGame() {
   musicPlaying = 1;
   currentMusic();
 
-
   $('body').append("<div class = 'game1'><div>");
   $('.game1').append("<div id = 'content'><div>");
   $('.game1').html(gotHamletTestamentData);
@@ -666,14 +723,30 @@ function firstTextGame() {
     my: `center`+ verticalOffset,
     at: `center`+ horizontalOffset
   },
-  height: 380,
-  width: 550,
+  height: 550,
+  width: 750,
   close: function() {
     responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
     $(".game1").remove();
     setTimeout(firstTextGame, 5000);
   },
   closeOnEscape: false,
+  buttons: [
+    {
+      text: "Instructions",
+      icon: "ui-icon-gear",
+      click: function() {
+        responsiveVoice.speak('Identify one of the works of literature above to reconstruct your personality.', 'UK English Male');
+      }
+    },
+    {
+      text: "Resources Available",
+      icon: "ui-icon-heart",
+      click: function() {
+        responsiveVoice.speak('When in doubt, a vast electronic sea brimming with information can help.', 'UK English Female');
+      }
+    }
+  ],
   title: "The Second Layer - Restoration (1)"
   });
 }
@@ -728,8 +801,8 @@ function secondTextGame() {
     my: `center`+ verticalOffset,
     at: `center`+ horizontalOffset
   },
-  height: 380,
-  width: 550,
+  height: 550,
+  width: 750,
   close: function() {
     responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
     $(".game2").remove();
@@ -791,8 +864,8 @@ function thirdTextGame() {
     my: `center`+ verticalOffset,
     at: `center`+ horizontalOffset
   },
-  height: 380,
-  width: 550,
+  height: 550,
+  width: 750,
   close: function() {
     responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
     $(".game3").remove();
@@ -812,7 +885,7 @@ function firstQuestion() {
 
   $('body').append("<div class = 'question1'><div>");
 
-  $('.question1').html("Is there such a thing as destiny?");
+  $('.question1').html("You remember the self, for good or for worse. But, where were you in regards to the world around you? Answer a few questions to recontextualize yourself. <br> <br> Is there such a thing as destiny? <br> <br> [Yes]   [No]");
 
   if (annyang) {
         var commands = {
@@ -820,14 +893,14 @@ function firstQuestion() {
             setTimeout(secondQuestion, 3000);
             responsiveVoice.speak("You were content to lie to and float down the river of time.", 'UK English Male');
             console.log('annyang working');
-            questionChoice = 0;
+            questionChoice1 = 0;
 
           },
           'no': function() {
             setTimeout(secondQuestion, 3000);
             responsiveVoice.speak("You operate the forge, hammering away without stop.", 'UK English Female');
             console.log('annyang working');
-            questionChoice = 1;
+            questionChoice1 = 1;
           }
         }
         // annyang functionality
@@ -861,30 +934,32 @@ function firstQuestion() {
 
 function secondQuestion() {
   $('.question1').remove();
+  $('.question2').remove();
 
   $('body').append("<div class = 'question2'><div>");
 
-  if(questionChoice === 1) {
-    $('.question2').html("If you could watch everything that happened in your life until now, would you enjoy it?");
+  // variables for randomizing location of dialog boxes
+  let horizontalOffset = Math.floor(Math.random() * 401) - 200;
+  let verticalOffset = Math.flooir(Math.random() * 401) - 200;
 
-    // variables for randomizing location of dialog boxes
-    let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
-    let verticalOffset = Math.floor(Math.random() * 401) - 200;
+  if(questionChoice1 === 1) {
+    $('.question2').html("Very good... and if you could watch everything that happened in your life until now, would you enjoy it? <br> <br> [Of Course]   [Not Really]");
+
 
     if (annyang) {
           var commands = {
-            'yes': function() {
+            'of course': function() {
               setTimeout(thirdQuestion, 3000);
               responsiveVoice.speak("Looking back, it wasn't so bad, was it?", 'UK English Male');
               console.log('annyang working');
-              questionChoice = 0;
+              questionChoice2 = 0;
 
             },
-            'no': function() {
+            'not really': function() {
               setTimeout(thirdQuestion, 3000);
               responsiveVoice.speak("You have a lot of dreams you gave up on, and even more regrets.", 'UK English Female');
               console.log('annyang working');
-              questionChoice = 1;
+              questionChoice2 = 1;
             }
           }
           // annyang functionality
@@ -892,23 +967,23 @@ function secondQuestion() {
           annyang.start();
       }
 
-  } else {
-    $('.question2').html("Do you believe in a power greater than humanity?");
+  } else if (questionChoice1 === 0){
+    $('.question2').html("Very good... and do you believe in a power greater than humanity? <br> <br> [It is possible]   [Not likely]");
 
     if (annyang) {
           var commands = {
-            'yes': function() {
+            'it is possible': function() {
               setTimeout(fourthQuestion, 3000);
               responsiveVoice.speak("You've embraced powerlessness long ago.", 'UK English Male');
               console.log('annyang working');
-              questionChoice = 0;
+              questionChoice3 = 0;
 
             },
-            'no': function() {
+            'not likely': function() {
               setTimeout(fourthQuestion, 3000);
               responsiveVoice.speak("Despite your inaction, you believe in the strength of humanity.", 'UK English Female');
               console.log('annyang working');
-              questionChoice = 1;
+              questionChoice3 = 1;
             }
           }
           // annyang functionality
@@ -945,17 +1020,17 @@ function thirdQuestion() {
   let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
   let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
-  if(questionChoice === 1) {
-    $('.question3').html("In that case, if you could go back to the very beginning and start over, would you do it?");
+  if(questionChoice2 === 1) {
+    $('.question3').html("And finally... in that case, if you could go back to the very beginning and start over, would you do it? <br> <br> [I would]   [I would not]");
 
     if (annyang) {
           var commands = {
-            'yes': function() {
+            'i would': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("Maybe then time you would make it right. You wouldn't look away.", 'UK English Male');
               console.log('annyang working');
             },
-            'no': function() {
+            'i would not': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You have accepted what you've become. Forward is the only way.", 'UK English Female');
               console.log('annyang working');
@@ -967,16 +1042,16 @@ function thirdQuestion() {
       }
 
   } else {
-    $('.question3').html("In that case, are you satisfied with the road life has led you to take?");
+    $('.question3').html("And finally... In that case, are you satisfied with the road life has led you to take? <br> <br> [I Am]   [Not Satisified]");
 
     if (annyang) {
           var commands = {
-            'yes': function() {
+            'i am': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You acknowledge yourself. Forward us the only way.", 'UK English Male');
               console.log('annyang working');
             },
-            'no': function() {
+            'not satisfied': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("Not exactly, anyway. Satisfaction makes a hard bargain.", 'UK English Female');
               console.log('annyang working');
@@ -1015,17 +1090,17 @@ function fourthQuestion() {
   let  horizontalOffset = Math.floor(Math.random() * 401) - 200;
   let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
-  if(questionChoice === 1) {
-    $('.question4').html("In that case, are you the one in control of your life?");
+  if(questionChoice3 === 1) {
+    $('.question4').html("And finally... In that case, are you the one in control of your life? <br> <br> [Only I]   [I Have No Control]");
 
     if (annyang) {
           var commands = {
-            'yes': function() {
+            'only i': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You finally realize that you hold the reins.", 'UK English Male');
               console.log('annyang working');
             },
-            'no': function() {
+            'i have no control': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("Mist surrounds you, a single thread around your neck dragging you.", 'UK English Female');
               console.log('annyang working');
@@ -1037,16 +1112,16 @@ function fourthQuestion() {
       }
 
   } else {
-    $('.question4').html("Does that entity define you?");
+    $('.question4').html("And finally... Does that entity define you? <br> <br> [It defines me]    [It does not]");
 
     if (annyang) {
           var commands = {
-            'yes': function() {
+            'it defines me': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You left things outside of your control to another.", 'UK English Male');
               console.log('annyang working');
             },
-            'no': function() {
+            'it does not': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You acknowledge your weakness, but look past it.", 'UK English Female');
               console.log('annyang working');
