@@ -33,7 +33,6 @@ let backgroundImageSize = 800;
 // preloading the audio
 let answerSFX = new Audio("assets/sounds/sublayer.mp3");
 let lockSFX = new Audio("assets/sounds/lockOpened.mp3");
-let riddlesMusic = new Audio("assets/sounds/riddlesMusic.mp3");
 let clickSFX = new Audio("assets/sounds/effects.wav");
 
 // assigning variables to text files for Rita functionality
@@ -43,6 +42,10 @@ let fellowshipText;
 let monteCristoText;
 let oldTestamentText;
 let petitPrinceText;
+
+let riddleMusic;
+let textMusic;
+let questionsMusic;
 
 // markov generator variable
 let markov;
@@ -60,6 +63,9 @@ let questionChoice;
 // variable for the dots moving in the background, using oop
 let movingDots = [];
 let dotsCount = 50;
+
+// variables to change music throughout the project
+let musicPlaying;
 
 // setup
 //
@@ -144,6 +150,17 @@ function jquerySetup() {
 
 }
 
+//preload
+//
+// preloading sounds using p5
+function preload() {
+  soundFormats('mp3', 'wav');
+
+  riddleMusic = loadSound("assets/sounds/riddlesMusic.mp3");
+  textMusic = loadSound("assets/sounds/textMusic.mp3");
+  questionsMusic = loadSound("assets/sounds/questionsMusic.mp3");
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -172,6 +189,12 @@ if (!heartClicked) {
   line(0, height/2, width, height - 400);
   strokeWeight(36);
   line(width/2, 0, width/2 - 100, height);
+
+  rectMode(CENTER);
+  strokeWeight(4);
+  textSize(52);
+  stroke(255, 0, 0);
+  text('Say [ Launch ] to begin...', width/2, height/2 + 200);
 
 } else {
   background("#800000");
@@ -245,12 +268,21 @@ if (!heartClicked) {
  }
 }
 
-// function backgroundMovingObjects() {
-//   dotX += dotVX;
-//   dotY += dotVY;
-//
-//   ellipse(dotX, dotY);
-// }
+function currentMusic() {
+  if (musicPlaying === 0) {
+    riddleMusic.setVolume(0.5);
+    riddleMusic.play();
+    riddleMusic.loop = true;
+  } else if (musicPlaying === 1) {
+    riddleMusic.pause();
+    textMusic.play();
+    textMusic.loop = true;
+  } else if (musicPlaying === 2) {
+    textMusic.pause();
+    questionsMusic.play();
+    questionsMusic.loop = true;
+  }
+}
 
 // startChoice
 //
@@ -261,7 +293,11 @@ function startChoice() {
   //remove the promt text
   $('.startImage').remove();
   heartClicked = true;
-  riddlesMusic.play();
+
+  // making the variable to chose the soundtrack 0, which is the ost for the riddles
+  musicPlaying = 0;
+
+  currentMusic();
 
   // append the div which contains the popup
   $('body').append("<div class = 'startingGame'><div>");
@@ -583,6 +619,9 @@ function firstTextGame() {
   $(".riddle2").remove();
   $(".riddle3").remove();
 
+  musicPlaying = 1;
+  currentMusic();
+
 
   $('body').append("<div class = 'game1'><div>");
   $('.game1').append("<div id = 'content'><div>");
@@ -767,6 +806,9 @@ function thirdTextGame() {
 
 function firstQuestion() {
   $('.game3').remove();
+
+  musicPlaying = 2;
+  currentMusic();
 
   $('body').append("<div class = 'question1'><div>");
 
