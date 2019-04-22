@@ -833,7 +833,7 @@ function firstTextGame() {
   width: 750,
   // when x is pressed
   close: function() {
-    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    responsiveVoice.speak("You know what they say about a good book.", 'UK English Male', options);
     $(".game1").remove();
     setTimeout(firstTextGame, 5000);
   },
@@ -924,7 +924,7 @@ function secondTextGame() {
   width: 750,
   // when x is clicked
   close: function() {
-    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    responsiveVoice.speak("I you cannot answer, ask your other self.", 'UK English Male', options);
     $(".game2").remove();
     setTimeout(secondTextGame, 5000);
   },
@@ -994,7 +994,7 @@ function thirdTextGame() {
   height: 550,
   width: 750,
   close: function() {
-    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    responsiveVoice.speak("Wait and hope, and answer.", 'UK English Male', options);
     $(".game3").remove();
     // opens the same dialog after 5 seconds
     setTimeout(thirdTextGame, 5000);
@@ -1068,7 +1068,7 @@ function firstQuestion() {
   width: 550,
   // when x clicked
   close: function() {
-    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    responsiveVoice.speak("Desiny dictates. Answer.", 'UK English Male', options);
     $(".question1").remove();
     setTimeout(secondQuestion, 5000);
   },
@@ -1159,7 +1159,7 @@ function secondQuestion() {
   height: 380,
   width: 550,
   close: function() {
-    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    responsiveVoice.speak("Belief goes a long way. Too bad you do not.", 'UK English Male', options);
     $(".question2").remove();
     setTimeout(secondQuestion, 5000);
   },
@@ -1240,7 +1240,7 @@ function thirdQuestion() {
   height: 380,
   width: 550,
   close: function() {
-    responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
+    responsiveVoice.speak("You cannot escape from your own escapade.", 'UK English Male', options);
     $(".question3").remove();
     setTimeout(thirdQuestion, 5000);
   },

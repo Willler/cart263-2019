@@ -5,7 +5,7 @@
 
 // dots
 //
-// Where the rain object parameters and variables will be configured
+// Where the dots object parameters and variables will be configured
 // and initialized
 function Dots(x, y, vx, vy, size, border, speed) {
   this.x = x;
@@ -19,7 +19,7 @@ function Dots(x, y, vx, vy, size, border, speed) {
 
 // update()
 //
-// where changes to the rain object are determined
+// where changes to the dots object are determined
 Dots.prototype.update = function () {
   // Update position with velocity
   this.x += this.vx;
@@ -28,8 +28,8 @@ Dots.prototype.update = function () {
 
 // touchedBottom()
 //
-// function that makes the rain drop do something when they reach the bottom
-// of the canvas
+// function that makes the dots do something when they reach the bottom
+// of the canvas, which in this case is reappear at the top in a random x position
 Dots.prototype.touchedBottom = function () {
   // check if the y value is greater than the height of the canvas
   if (this.y > height) {
@@ -42,9 +42,7 @@ Dots.prototype.touchedBottom = function () {
 //
 // where we determine the object's appearance
 Dots.prototype.display = function () {
-
   fill(200);
   noStroke();
   ellipse(this.x, this.y, this.size);
-
 }
