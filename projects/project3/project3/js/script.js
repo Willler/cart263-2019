@@ -16,8 +16,7 @@ $(document).ready(jquerySetup);
 
 // defining the options variable, which will randomize the pitch and rate of responsiveVoice
 let options = {
-  pitch: Math.random(),
-  rate: Math.random()
+  pitch: Math.random()
 };
 
 // variables for the pulsing background imagery
@@ -54,8 +53,8 @@ let markov;
 let previousRiddle = '';
 let riddlesAnswered = 1;
 
-// variable to initiate background after click
-let heartClicked = false;
+// variable to initiate background after prompted, 0 is the beginning, 1 is the initiated content, 2 is the end
+let initiated = 0;
 
 // counter for the existential questions, this will alter the next question received. 0 will one path, 1 the other
 let questionChoice1;
@@ -79,8 +78,11 @@ let blueValue;
 // initializing the project
 function jquerySetup() {
 
+    $('.outroGif').remove();
+
   setTimeout( function(){
     $('.introGif').remove();
+
     $('.startImage').add();
   }  , 5500 );
 
@@ -158,7 +160,7 @@ function jquerySetup() {
   if (annyang) {
         var commands = {
           'launch': function() {
-            setTimeout(firstTextGame, 500);
+            setTimeout(startChoice, 500);
           }
         }
         // annyang functionality
@@ -167,6 +169,7 @@ function jquerySetup() {
     }
 
 }
+
 
 //preload
 //
@@ -194,7 +197,7 @@ function setup() {
 
 function draw() {
 
-if (!heartClicked) {
+if (initiated === 0) {
   background(26,0,0);
   stroke(100);
   strokeWeight(16);
@@ -215,7 +218,7 @@ if (!heartClicked) {
   text('Please accept Mic access', width/2 + 150, 200);
   text('and say [Launch] to begin', width/2 + 150, 250);
 
-} else {
+} else if (initiated === 1){
   background(redValue*5, greenValue*5, blueValue*5);
 
   var imageGrowth = sin(backgroundImageAngle) * (backgroundImageSize/20);
@@ -284,7 +287,9 @@ if (!heartClicked) {
 
 
   backgroundImageAngle += 0.05;
- }
+} else if (initiated === 2){
+    background(255);
+  }
 }
 
 function currentMusic() {
@@ -328,7 +333,7 @@ function startChoice() {
 
   //remove the promt text
   $('.startImage').remove();
-  heartClicked = true;
+  initiated = 1;
 
   // making the variable to chose the soundtrack 0, which is the ost for the riddles
   musicPlaying = 0;
@@ -346,7 +351,7 @@ function startChoice() {
         var commands = {
           'contempt': function() {
             setTimeout(firstRiddle, 5000);
-            responsiveVoice.speak("Years of contempt leave you jaded.", 'Italian Male', options);
+            responsiveVoice.speak("Years of contempt leave you jaded.", 'UK English Male', options);
             console.log('contempt option chosen');
             answerSFX.play();
           },
@@ -1144,7 +1149,7 @@ function fourthQuestion() {
   close: function() {
     responsiveVoice.speak("Nothing noteworthy occurs.", 'UK English Male', options);
     $(".question4").remove();
-    setTimeout(secondQuestion, 5000);
+    setTimeout(fourthQuestion, 5000);
   },
   closeOnEscape: false,
   title: "The Third Layer - Resurgeance (3)"
@@ -1152,5 +1157,54 @@ function fourthQuestion() {
 }
 
 function awakenFromDream() {
+  $('.question3').remove();
+  $('.question4').remove();
 
+  $('body').append("<div class = 'awakenPrompt'><div>");
+
+  $('.awakenPrompt').html("You have completely restored yourself and remember your place in the world. Whether or not you can put your doubts behind you can wait another day. For now, you can [Awaken] from your bitter dreams and banish the abyss.");
+
+  // variables for randomizing location of dialog boxes
+  let horizontalOffset = Math.floor(Math.random() * 201) - 100;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
+
+  if (annyang) {
+        var commands = {
+          'awaken': function() {
+            setTimeout(endingFunction, 3000);
+            responsiveVoice.speak("You acknowledge yourself. Forward us the only way.", 'UK English Male');
+            console.log('annyang working');
+          }
+        }
+        // annyang functionality
+        annyang.addCommands(commands);
+        annyang.start();
+    }
+
+
+  $(".awakenPrompt").dialog({
+
+  position: {
+    my: `center`+ verticalOffset,
+    at: `center`+ horizontalOffset
+  },
+  height: 380,
+  width: 550,
+  close: function() {
+    responsiveVoice.speak("You must wake up. The nightmare is over.", 'UK English Male', options);
+    $(".question4").remove();
+    setTimeout(awakenFromDream, 5000);
+  },
+  closeOnEscape: false,
+  title: "The Third Layer - Resurgeance (3)"
+  });
+}
+
+function endingFunction() {
+  $('.startImage').remove();
+  $('.awakenPrompt').remove();
+  initiated = 2;
+  console.log('gif');
+  $('body').append('<img src="assets/images/outro.gif" class="outroGif" alt="">');
+  responsiveVoice.speak("But in the end... nothing changed.", 'UK English Female', options);
 }

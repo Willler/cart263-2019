@@ -54,7 +54,7 @@ canvas {
   z-index: -10;
 }
 
-.introGif {
+.introGif, .outroGif {
   position: absolute;
   top: 50%;
   left: 50%;
