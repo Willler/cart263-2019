@@ -27,6 +27,8 @@ let backgroundImageSize = 800;
 let answerSFX = new Audio("assets/sounds/sublayer.mp3");
 let lockSFX = new Audio("assets/sounds/lockOpened.mp3");
 let clickSFX = new Audio("assets/sounds/effects.wav");
+let heartSFX = new Audio("assets/sounds/heart.wav");
+let doorSFX = new Audio("assets/sounds/door.wav");
 
 // assigning variables to text files for Rita functionality, for all 6 books I am using
 let hamletText;
@@ -81,6 +83,7 @@ function jquerySetup() {
     $('.introGif').remove();
 
     $('.startImage').add();
+    heartSFX.play();
   }  , 5500 );
 
   // use when and ajax to load the different text files which will be used for Rita functionality in part 2 of the project, for the first two books
@@ -217,7 +220,7 @@ if (initiated === 0) {
 
   // insert some prompt text to instruct user of what to do, in this case, how to start the project
   rectMode(CENTER);
-  strokeWeight(4);
+  strokeWeight(2);
   textSize(36);
   fill(255);
   text('Please accept Mic access', width/2 + 150, 200);
@@ -359,6 +362,7 @@ function startChoice() {
 
   //remove the prompt text and image
   $('.startImage').remove();
+  heartSFX.stop;
 
   // set state of the game with this variable, 1 means the actual content of the project
   initiated = 1;
@@ -799,21 +803,25 @@ function firstTextGame() {
             // flavor text using responsiveVoice
             responsiveVoice.speak("A shakespearean classic, of course.", 'UK English Male');
             console.log('annyang working');
+            answerSFX.play();
           },
           'shakespear': function() {
             setTimeout(secondTextGame, 3000);
             responsiveVoice.speak("Good enough.", 'UK English Female');
             console.log('annyang working');
+            answerSFX.play();
           },
           'old testament': function() {
             setTimeout(secondTextGame, 3000);
             responsiveVoice.speak("A holy scripture. Of course you know about it.", 'UK English Female');
             console.log('annyang working');
+            answerSFX.play();
           },
           'bible': function() {
             setTimeout(secondTextGame, 3000);
             responsiveVoice.speak("A little vague, but it does the job.", 'Spanish Female');
             console.log('annyang working');
+            answerSFX.play();
           }
         }
         // annyang functionality
@@ -889,22 +897,25 @@ function secondTextGame() {
             setTimeout(thirdTextGame, 3000);
             responsiveVoice.speak("Examplary work. Everything seems clearer now.", 'UK English Male');
             console.log('annyang working');
-
+            answerSFX.play();
           },
           'jekyll and hyde': function() {
             setTimeout(thirdTextGame, 3000);
             responsiveVoice.speak("Correct. Another lock bursts open.", 'UK English Female');
             console.log('annyang working');
+            answerSFX.play();
           },
           'lord of the rings': function() {
             setTimeout(thirdTextGame, 3000);
             responsiveVoice.speak("You always wished you could put it on as well.", 'UK English Female');
             console.log('annyang working');
+            answerSFX.play();
           },
           'fellowship of the ring': function() {
             setTimeout(thirdTextGame, 3000);
             responsiveVoice.speak("Precisely. The misty veil parts once more.", 'Spanish Female');
             console.log('annyang working');
+            answerSFX.play();
           }
         }
         // annyang functionality
@@ -961,22 +972,25 @@ function thirdTextGame() {
             // responsiveVoice for text
             responsiveVoice.speak("Wait and hope; Words you've always gone by.", 'UK English Male');
             console.log('annyang working');
-
+            lockSFX.play();
           },
           'monte cristo': function() {
             setTimeout(firstQuestion, 3000);
             responsiveVoice.speak("An unimaginable treasure. You wish you had such fortune.", 'UK English Female');
             console.log('annyang working');
+            lockSFX.play();
           },
           'le petit prince': function() {
             setTimeout(firstQuestion, 3000);
             responsiveVoice.speak("Une aventure qui a du coeur. Tu en es jaloux.", 'French Female');
             console.log('annyang working');
+            lockSFX.play();
           },
           'little prince': function() {
             setTimeout(firstQuestion, 3000);
             responsiveVoice.speak("An emotional tale that changed your youth.", 'UK English Female');
             console.log('annyang working');
+            lockSFX.play();
           }
         }
         // annyang functionality
@@ -1037,6 +1051,7 @@ function firstQuestion() {
             console.log('annyang working');
             // set the choice to 0, which will make it so that the next question will differ than if you chose 'no'
             questionChoice1 = 0;
+            answerSFX.play();
           },
           'no': function() {
             // open after 3 seconds
@@ -1045,6 +1060,7 @@ function firstQuestion() {
             console.log('annyang working');
             // variable to make the next questions different
             questionChoice1 = 1;
+            answerSFX.play();
           }
         }
         // annyang functionality
@@ -1092,7 +1108,7 @@ function secondQuestion() {
 
   // variables for randomizing location of dialog boxes
   let horizontalOffset = Math.floor(Math.random() * 401) - 200;
-  let verticalOffset = Math.flooir(Math.random() * 401) - 200;
+  let verticalOffset = Math.floor(Math.random() * 401) - 200;
 
   // check which choice was taken on the previous question, chose this question accordingly
   if(questionChoice1 === 1) {
@@ -1107,6 +1123,7 @@ function secondQuestion() {
               responsiveVoice.speak("Looking back, it wasn't so bad, was it?", 'UK English Male');
               console.log('annyang working');
               questionChoice2 = 0;
+              answerSFX.play();
 
             },
             'not really': function() {
@@ -1114,6 +1131,7 @@ function secondQuestion() {
               responsiveVoice.speak("You have a lot of dreams you gave up on, and even more regrets.", 'UK English Female');
               console.log('annyang working');
               questionChoice2 = 1;
+              answerSFX.play();
             }
           }
           // annyang functionality
@@ -1133,13 +1151,14 @@ function secondQuestion() {
               responsiveVoice.speak("You've embraced powerlessness long ago.", 'UK English Male');
               console.log('annyang working');
               questionChoice3 = 0;
-
+              answerSFX.play();
             },
             'not likely': function() {
               setTimeout(fourthQuestion, 3000);
               responsiveVoice.speak("Despite your inaction, you believe in the strength of humanity.", 'UK English Female');
               console.log('annyang working');
               questionChoice3 = 1;
+              answerSFX.play();
             }
           }
           // annyang functionality
@@ -1194,11 +1213,13 @@ function thirdQuestion() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("Maybe then time you would make it right. You wouldn't look away.", 'UK English Male');
               console.log('annyang working');
+              lockSFX.play();
             },
             'i would not': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You have accepted what you've become. Forward is the only way.", 'UK English Female');
               console.log('annyang working');
+              lockSFX.play();
             }
           }
           // annyang functionality
@@ -1217,11 +1238,13 @@ function thirdQuestion() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You acknowledge yourself. Forward us the only way.", 'UK English Male');
               console.log('annyang working');
+              lockSFX.play();
             },
             'not satisfied': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("Not exactly, anyway. Satisfaction makes a hard bargain.", 'UK English Female');
               console.log('annyang working');
+              lockSFX.play();
             }
           }
           // annyang functionality
@@ -1275,11 +1298,13 @@ function fourthQuestion() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You finally realize that you hold the reins.", 'UK English Male');
               console.log('annyang working');
+              lockSFX.play();
             },
             'i have no control': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("Mist surrounds you, a single thread around your neck dragging you.", 'UK English Female');
               console.log('annyang working');
+              lockSFX.play();
             }
           }
           // annyang functionality
@@ -1298,11 +1323,13 @@ function fourthQuestion() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You left things outside of your control to another.", 'UK English Male');
               console.log('annyang working');
+              lockSFX.play();
             },
             'it does not': function() {
               setTimeout(awakenFromDream, 3000);
               responsiveVoice.speak("You acknowledge your weakness, but look past it.", 'UK English Female');
               console.log('annyang working');
+              lockSFX.play();
             }
           }
           // annyang functionality
@@ -1359,6 +1386,7 @@ function awakenFromDream() {
             setTimeout(endingFunction, 3000);
             responsiveVoice.speak("You acknowledge yourself. Forward us the only way.", 'UK English Male');
             console.log('annyang working');
+            doorSFX.play();
           }
         }
         // annyang functionality
@@ -1398,5 +1426,7 @@ function endingFunction() {
   // append the outro gif to the body
   $('body').append('<img src="assets/images/outro.gif" class="outroGif" alt="">');
   // last responsiveVoice flavor
-  responsiveVoice.speak("But in the end... nothing changed.", 'UK English Female', options);
+  setTimeout( function(){
+      responsiveVoice.speak("But in the end... nothing changed.", 'UK English Female', options);
+  }, 2000);
 }
