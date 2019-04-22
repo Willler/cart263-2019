@@ -2,7 +2,7 @@
 
 /*****************
 
-Project 3 [Name Pending]
+Project 3 [Nightmare]
 William L'Eriger
 
 Javascript code for Project 3
@@ -931,8 +931,8 @@ function secondTextGame() {
     at: `center`+ horizontalOffset
   },
   // size it
-  height: 550,
-  width: 750,
+  height: 650,
+  width: 850,
   // when x is clicked
   close: function() {
     responsiveVoice.speak("I you cannot answer, ask your other self.", 'UK English Male', options);
@@ -1005,8 +1005,8 @@ function thirdTextGame() {
     at: `center`+ horizontalOffset
   },
   // size it and define what happens when x is clicked
-  height: 550,
-  width: 750,
+  height: 600,
+  width: 850,
   close: function() {
     responsiveVoice.speak("Wait and hope, and answer.", 'UK English Male', options);
     $(".game3").remove();
@@ -1425,7 +1425,7 @@ function endingFunction() {
   console.log('gif');
   // append the outro gif to the body
   $('body').append('<img src="assets/images/outro.gif" class="outroGif" alt="">');
-  // last responsiveVoice flavor
+  // last responsiveVoice flavor text, after a small delay
   setTimeout( function(){
       responsiveVoice.speak("But in the end... nothing changed.", 'UK English Female', options);
   }, 2000);

@@ -1,3 +1,5 @@
+Title: Nightmare
+
 My take on this project tackles the issue of escapism in someone’s daily life cranked to eleven. Presented as a reconstruction of the self within the real world through three different stages, the player is stuck within a daydream in which they have to answer riddles, identify works of literature and answer existential questions. The project was made using a few different javascript libraries, including jquery, jqueryUI, RiTa, annyang, responsiveVoice and p5. Through this library, I aimed to make the project contain very little reliance on the mouse and instead prompted the player to use nothing but their heads and voices.
 
 To accomplish this, I used jqueryUI to construct dialog boxes which would contain the questions, content or whatever else was needed, such as instructions. From there, the player would answer whatever they needed to to proceed through voice recognition with the annyang library. Moreover, after every action that matter, such as answering or trying to close the dialog window, responsiveVoice adds some flavor text out loud, mostly using the UK English voices.
